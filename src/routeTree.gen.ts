@@ -14,6 +14,11 @@ import { Route as StudentRouteImport } from './routes/_student'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as StudentDashboardRouteImport } from './routes/_student.dashboard'
+import { Route as StudentDeadlinesRouteImport } from './routes/_student.deadlines'
+import { Route as StudentEssaysRouteImport } from './routes/_student.essays'
+import { Route as StudentTrackerRouteImport } from './routes/_student.tracker'
+import { Route as StudentScholarshipsIndexRouteImport } from './routes/_student.scholarships.index'
+import { Route as StudentScholarshipsIdRouteImport } from './routes/_student.scholarships.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -39,18 +44,54 @@ const StudentDashboardRoute = StudentDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => StudentRoute,
 } as any)
+const StudentDeadlinesRoute = StudentDeadlinesRouteImport.update({
+  id: '/deadlines',
+  path: '/deadlines',
+  getParentRoute: () => StudentRoute,
+} as any)
+const StudentEssaysRoute = StudentEssaysRouteImport.update({
+  id: '/essays',
+  path: '/essays',
+  getParentRoute: () => StudentRoute,
+} as any)
+const StudentTrackerRoute = StudentTrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
+  getParentRoute: () => StudentRoute,
+} as any)
+const StudentScholarshipsIndexRoute =
+  StudentScholarshipsIndexRouteImport.update({
+    id: '/scholarships/',
+    path: '/scholarships/',
+    getParentRoute: () => StudentRoute,
+  } as any)
+const StudentScholarshipsIdRoute = StudentScholarshipsIdRouteImport.update({
+  id: '/scholarships/$id',
+  path: '/scholarships/$id',
+  getParentRoute: () => StudentRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/onboarding': typeof OnboardingRoute
   '/sign-in': typeof SignInRoute
   '/dashboard': typeof StudentDashboardRoute
+  '/deadlines': typeof StudentDeadlinesRoute
+  '/essays': typeof StudentEssaysRoute
+  '/tracker': typeof StudentTrackerRoute
+  '/scholarships/$id': typeof StudentScholarshipsIdRoute
+  '/scholarships/': typeof StudentScholarshipsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/onboarding': typeof OnboardingRoute
   '/sign-in': typeof SignInRoute
   '/dashboard': typeof StudentDashboardRoute
+  '/deadlines': typeof StudentDeadlinesRoute
+  '/essays': typeof StudentEssaysRoute
+  '/tracker': typeof StudentTrackerRoute
+  '/scholarships/$id': typeof StudentScholarshipsIdRoute
+  '/scholarships': typeof StudentScholarshipsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -59,12 +100,35 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRoute
   '/sign-in': typeof SignInRoute
   '/_student/dashboard': typeof StudentDashboardRoute
+  '/_student/deadlines': typeof StudentDeadlinesRoute
+  '/_student/essays': typeof StudentEssaysRoute
+  '/_student/tracker': typeof StudentTrackerRoute
+  '/_student/scholarships/$id': typeof StudentScholarshipsIdRoute
+  '/_student/scholarships/': typeof StudentScholarshipsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/onboarding' | '/sign-in' | '/dashboard'
+  fullPaths:
+    | '/'
+    | '/onboarding'
+    | '/sign-in'
+    | '/dashboard'
+    | '/deadlines'
+    | '/essays'
+    | '/tracker'
+    | '/scholarships/$id'
+    | '/scholarships/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/onboarding' | '/sign-in' | '/dashboard'
+  to:
+    | '/'
+    | '/onboarding'
+    | '/sign-in'
+    | '/dashboard'
+    | '/deadlines'
+    | '/essays'
+    | '/tracker'
+    | '/scholarships/$id'
+    | '/scholarships'
   id:
     | '__root__'
     | '/'
@@ -72,6 +136,11 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/sign-in'
     | '/_student/dashboard'
+    | '/_student/deadlines'
+    | '/_student/essays'
+    | '/_student/tracker'
+    | '/_student/scholarships/$id'
+    | '/_student/scholarships/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,15 +187,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentDashboardRouteImport
       parentRoute: typeof StudentRoute
     }
+    '/_student/deadlines': {
+      id: '/_student/deadlines'
+      path: '/deadlines'
+      fullPath: '/deadlines'
+      preLoaderRoute: typeof StudentDeadlinesRouteImport
+      parentRoute: typeof StudentRoute
+    }
+    '/_student/essays': {
+      id: '/_student/essays'
+      path: '/essays'
+      fullPath: '/essays'
+      preLoaderRoute: typeof StudentEssaysRouteImport
+      parentRoute: typeof StudentRoute
+    }
+    '/_student/tracker': {
+      id: '/_student/tracker'
+      path: '/tracker'
+      fullPath: '/tracker'
+      preLoaderRoute: typeof StudentTrackerRouteImport
+      parentRoute: typeof StudentRoute
+    }
+    '/_student/scholarships/': {
+      id: '/_student/scholarships/'
+      path: '/scholarships'
+      fullPath: '/scholarships/'
+      preLoaderRoute: typeof StudentScholarshipsIndexRouteImport
+      parentRoute: typeof StudentRoute
+    }
+    '/_student/scholarships/$id': {
+      id: '/_student/scholarships/$id'
+      path: '/scholarships/$id'
+      fullPath: '/scholarships/$id'
+      preLoaderRoute: typeof StudentScholarshipsIdRouteImport
+      parentRoute: typeof StudentRoute
+    }
   }
 }
 
 interface StudentRouteChildren {
   StudentDashboardRoute: typeof StudentDashboardRoute
+  StudentDeadlinesRoute: typeof StudentDeadlinesRoute
+  StudentEssaysRoute: typeof StudentEssaysRoute
+  StudentTrackerRoute: typeof StudentTrackerRoute
+  StudentScholarshipsIdRoute: typeof StudentScholarshipsIdRoute
+  StudentScholarshipsIndexRoute: typeof StudentScholarshipsIndexRoute
 }
 
 const StudentRouteChildren: StudentRouteChildren = {
   StudentDashboardRoute: StudentDashboardRoute,
+  StudentDeadlinesRoute: StudentDeadlinesRoute,
+  StudentEssaysRoute: StudentEssaysRoute,
+  StudentTrackerRoute: StudentTrackerRoute,
+  StudentScholarshipsIdRoute: StudentScholarshipsIdRoute,
+  StudentScholarshipsIndexRoute: StudentScholarshipsIndexRoute,
 }
 
 const StudentRouteWithChildren =
