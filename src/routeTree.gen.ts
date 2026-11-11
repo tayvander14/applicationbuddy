@@ -15,6 +15,7 @@ import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as StudentDashboardRouteImport } from './routes/_student.dashboard'
 import { Route as StudentDeadlinesRouteImport } from './routes/_student.deadlines'
+import { Route as StudentEssaysRouteImport } from './routes/_student.essays'
 import { Route as StudentTrackerRouteImport } from './routes/_student.tracker'
 import { Route as StudentScholarshipsIndexRouteImport } from './routes/_student.scholarships.index'
 import { Route as StudentScholarshipsIdRouteImport } from './routes/_student.scholarships.$id'
@@ -48,6 +49,11 @@ const StudentDeadlinesRoute = StudentDeadlinesRouteImport.update({
   path: '/deadlines',
   getParentRoute: () => StudentRoute,
 } as any)
+const StudentEssaysRoute = StudentEssaysRouteImport.update({
+  id: '/essays',
+  path: '/essays',
+  getParentRoute: () => StudentRoute,
+} as any)
 const StudentTrackerRoute = StudentTrackerRouteImport.update({
   id: '/tracker',
   path: '/tracker',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof SignInRoute
   '/dashboard': typeof StudentDashboardRoute
   '/deadlines': typeof StudentDeadlinesRoute
+  '/essays': typeof StudentEssaysRoute
   '/tracker': typeof StudentTrackerRoute
   '/scholarships/$id': typeof StudentScholarshipsIdRoute
   '/scholarships/': typeof StudentScholarshipsIndexRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/sign-in': typeof SignInRoute
   '/dashboard': typeof StudentDashboardRoute
   '/deadlines': typeof StudentDeadlinesRoute
+  '/essays': typeof StudentEssaysRoute
   '/tracker': typeof StudentTrackerRoute
   '/scholarships/$id': typeof StudentScholarshipsIdRoute
   '/scholarships': typeof StudentScholarshipsIndexRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/sign-in': typeof SignInRoute
   '/_student/dashboard': typeof StudentDashboardRoute
   '/_student/deadlines': typeof StudentDeadlinesRoute
+  '/_student/essays': typeof StudentEssaysRoute
   '/_student/tracker': typeof StudentTrackerRoute
   '/_student/scholarships/$id': typeof StudentScholarshipsIdRoute
   '/_student/scholarships/': typeof StudentScholarshipsIndexRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/dashboard'
     | '/deadlines'
+    | '/essays'
     | '/tracker'
     | '/scholarships/$id'
     | '/scholarships/'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/dashboard'
     | '/deadlines'
+    | '/essays'
     | '/tracker'
     | '/scholarships/$id'
     | '/scholarships'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/_student/dashboard'
     | '/_student/deadlines'
+    | '/_student/essays'
     | '/_student/tracker'
     | '/_student/scholarships/$id'
     | '/_student/scholarships/'
@@ -182,6 +194,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentDeadlinesRouteImport
       parentRoute: typeof StudentRoute
     }
+    '/_student/essays': {
+      id: '/_student/essays'
+      path: '/essays'
+      fullPath: '/essays'
+      preLoaderRoute: typeof StudentEssaysRouteImport
+      parentRoute: typeof StudentRoute
+    }
     '/_student/tracker': {
       id: '/_student/tracker'
       path: '/tracker'
@@ -209,6 +228,7 @@ declare module '@tanstack/react-router' {
 interface StudentRouteChildren {
   StudentDashboardRoute: typeof StudentDashboardRoute
   StudentDeadlinesRoute: typeof StudentDeadlinesRoute
+  StudentEssaysRoute: typeof StudentEssaysRoute
   StudentTrackerRoute: typeof StudentTrackerRoute
   StudentScholarshipsIdRoute: typeof StudentScholarshipsIdRoute
   StudentScholarshipsIndexRoute: typeof StudentScholarshipsIndexRoute
@@ -217,6 +237,7 @@ interface StudentRouteChildren {
 const StudentRouteChildren: StudentRouteChildren = {
   StudentDashboardRoute: StudentDashboardRoute,
   StudentDeadlinesRoute: StudentDeadlinesRoute,
+  StudentEssaysRoute: StudentEssaysRoute,
   StudentTrackerRoute: StudentTrackerRoute,
   StudentScholarshipsIdRoute: StudentScholarshipsIdRoute,
   StudentScholarshipsIndexRoute: StudentScholarshipsIndexRoute,
