@@ -14,6 +14,7 @@ import { Route as StudentRouteImport } from './routes/_student'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as StudentDashboardRouteImport } from './routes/_student.dashboard'
+import { Route as StudentTrackerRouteImport } from './routes/_student.tracker'
 import { Route as StudentScholarshipsIndexRouteImport } from './routes/_student.scholarships.index'
 import { Route as StudentScholarshipsIdRouteImport } from './routes/_student.scholarships.$id'
 
@@ -41,6 +42,11 @@ const StudentDashboardRoute = StudentDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => StudentRoute,
 } as any)
+const StudentTrackerRoute = StudentTrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
+  getParentRoute: () => StudentRoute,
+} as any)
 const StudentScholarshipsIndexRoute =
   StudentScholarshipsIndexRouteImport.update({
     id: '/scholarships/',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof OnboardingRoute
   '/sign-in': typeof SignInRoute
   '/dashboard': typeof StudentDashboardRoute
+  '/tracker': typeof StudentTrackerRoute
   '/scholarships/$id': typeof StudentScholarshipsIdRoute
   '/scholarships/': typeof StudentScholarshipsIndexRoute
 }
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof OnboardingRoute
   '/sign-in': typeof SignInRoute
   '/dashboard': typeof StudentDashboardRoute
+  '/tracker': typeof StudentTrackerRoute
   '/scholarships/$id': typeof StudentScholarshipsIdRoute
   '/scholarships': typeof StudentScholarshipsIndexRoute
 }
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRoute
   '/sign-in': typeof SignInRoute
   '/_student/dashboard': typeof StudentDashboardRoute
+  '/_student/tracker': typeof StudentTrackerRoute
   '/_student/scholarships/$id': typeof StudentScholarshipsIdRoute
   '/_student/scholarships/': typeof StudentScholarshipsIndexRoute
 }
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/sign-in'
     | '/dashboard'
+    | '/tracker'
     | '/scholarships/$id'
     | '/scholarships/'
   fileRoutesByTo: FileRoutesByTo
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/sign-in'
     | '/dashboard'
+    | '/tracker'
     | '/scholarships/$id'
     | '/scholarships'
   id:
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/sign-in'
     | '/_student/dashboard'
+    | '/_student/tracker'
     | '/_student/scholarships/$id'
     | '/_student/scholarships/'
   fileRoutesById: FileRoutesById
@@ -151,6 +163,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentDashboardRouteImport
       parentRoute: typeof StudentRoute
     }
+    '/_student/tracker': {
+      id: '/_student/tracker'
+      path: '/tracker'
+      fullPath: '/tracker'
+      preLoaderRoute: typeof StudentTrackerRouteImport
+      parentRoute: typeof StudentRoute
+    }
     '/_student/scholarships/': {
       id: '/_student/scholarships/'
       path: '/scholarships'
@@ -170,12 +189,14 @@ declare module '@tanstack/react-router' {
 
 interface StudentRouteChildren {
   StudentDashboardRoute: typeof StudentDashboardRoute
+  StudentTrackerRoute: typeof StudentTrackerRoute
   StudentScholarshipsIdRoute: typeof StudentScholarshipsIdRoute
   StudentScholarshipsIndexRoute: typeof StudentScholarshipsIndexRoute
 }
 
 const StudentRouteChildren: StudentRouteChildren = {
   StudentDashboardRoute: StudentDashboardRoute,
+  StudentTrackerRoute: StudentTrackerRoute,
   StudentScholarshipsIdRoute: StudentScholarshipsIdRoute,
   StudentScholarshipsIndexRoute: StudentScholarshipsIndexRoute,
 }
