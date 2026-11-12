@@ -1,11 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { format } from "date-fns";
-import { AlertTriangle, BellRing, CalendarPlus, CheckCircle2, CalendarX2, Flag, Mail } from "lucide-react";
+import {
+  AlertTriangle,
+  BellRing,
+  CalendarPlus,
+  CheckCircle2,
+  CalendarX2,
+  Flag,
+  Mail,
+} from "lucide-react";
 import { toast } from "sonner";
 
 import { EmptyState, PageHeader } from "@/components/app/page-header";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
 import { getScholarship } from "@/lib/data/scholarships";
@@ -19,9 +32,17 @@ export const Route = createFileRoute("/_student/deadlines")({
   head: () => ({
     meta: [
       { title: "Deadlines & documents — Application Buddy" },
-      { name: "description", content: "A timeline of every scholarship deadline plus a checklist for essays, transcripts, letters and FAFSA materials." },
+      {
+        name: "description",
+        content:
+          "A timeline of every scholarship deadline plus a checklist for essays, transcripts, letters and FAFSA materials.",
+      },
       { property: "og:title", content: "Deadlines & documents — Application Buddy" },
-      { property: "og:description", content: "A timeline of every scholarship deadline plus a checklist for essays, transcripts, letters and FAFSA materials." },
+      {
+        property: "og:description",
+        content:
+          "A timeline of every scholarship deadline plus a checklist for essays, transcripts, letters and FAFSA materials.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -45,7 +66,9 @@ const STATUS_STYLE: Record<DocStatus, string> = {
 };
 
 function exportToCalendar(target: "Google Calendar" | "Apple Calendar", what: string) {
-  toast.success(`Added to ${target} (simulated)`, { description: `${what} — calendar sync arrives in a later version.` });
+  toast.success(`Added to ${target} (simulated)`, {
+    description: `${what} — calendar sync arrives in a later version.`,
+  });
 }
 
 function Deadlines() {
@@ -58,12 +81,39 @@ function Deadlines() {
 
   const milestones: Milestone[] = active
     .flatMap((s) => {
-      const list: Milestone[] = [{ key: s.id + "-d", inDays: s.deadlineInDays, label: "Application due", s, kind: "deadline" }];
+      const list: Milestone[] = [
+        {
+          key: s.id + "-d",
+          inDays: s.deadlineInDays,
+          label: "Application due",
+          s,
+          kind: "deadline",
+        },
+      ];
       if (s.requiredMaterials.includes("recommendation") && s.deadlineInDays - 14 >= 0)
-        list.push({ key: s.id + "-r", inDays: s.deadlineInDays - 14, label: "Ask for recommendation letter", s, kind: "milestone" });
+        list.push({
+          key: s.id + "-r",
+          inDays: s.deadlineInDays - 14,
+          label: "Ask for recommendation letter",
+          s,
+          kind: "milestone",
+        });
       if (s.requiredMaterials.includes("transcript") && s.deadlineInDays - 10 >= 0)
-        list.push({ key: s.id + "-t", inDays: s.deadlineInDays - 10, label: "Request transcript from counselor", s, kind: "milestone" });
-      if (s.deadlineInDays - 3 >= 0) list.push({ key: s.id + "-e", inDays: s.deadlineInDays - 3, label: "Final essay read-through", s, kind: "milestone" });
+        list.push({
+          key: s.id + "-t",
+          inDays: s.deadlineInDays - 10,
+          label: "Request transcript from counselor",
+          s,
+          kind: "milestone",
+        });
+      if (s.deadlineInDays - 3 >= 0)
+        list.push({
+          key: s.id + "-e",
+          inDays: s.deadlineInDays - 3,
+          label: "Final essay read-through",
+          s,
+          kind: "milestone",
+        });
       return list;
     })
     .filter((m) => m.inDays >= 0)
@@ -89,8 +139,16 @@ function Deadlines() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem onSelect={() => exportToCalendar("Google Calendar", `${active.length} deadlines`)}>Google Calendar</DropdownMenuItem>
-              <DropdownMenuItem onSelect={() => exportToCalendar("Apple Calendar", `${active.length} deadlines`)}>Apple Calendar</DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => exportToCalendar("Google Calendar", `${active.length} deadlines`)}
+              >
+                Google Calendar
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => exportToCalendar("Apple Calendar", `${active.length} deadlines`)}
+              >
+                Apple Calendar
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         }
@@ -102,13 +160,22 @@ function Deadlines() {
         </div>
         <div className="flex-1">
           <p className="font-semibold text-foreground">Deadline reminders</p>
-          <p className="text-sm text-muted-foreground">Email and push reminders 14, 7 and 2 days before each deadline (simulated in this prototype).</p>
+          <p className="text-sm text-muted-foreground">
+            Email and push reminders 14, 7 and 2 days before each deadline (simulated in this
+            prototype).
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => toast("Sample reminder", { description: "Montgomery County STEM Pathways is due soon. 2 materials still need attention.", icon: <Mail className="size-4" /> })}
+            onClick={() =>
+              toast("Sample reminder", {
+                description:
+                  "Montgomery County STEM Pathways is due soon. 2 materials still need attention.",
+                icon: <Mail className="size-4" />,
+              })
+            }
           >
             Preview
           </Button>
@@ -124,17 +191,32 @@ function Deadlines() {
       </div>
 
       {active.length === 0 ? (
-        <EmptyState icon={<CalendarX2 />} title="No active applications yet" action={<Button asChild><Link to="/scholarships">Find scholarships</Link></Button>}>
+        <EmptyState
+          icon={<CalendarX2 />}
+          title="No active applications yet"
+          action={
+            <Button asChild>
+              <Link to="/scholarships">Find scholarships</Link>
+            </Button>
+          }
+        >
           Save a scholarship and its deadline and checklist will show up here.
         </EmptyState>
       ) : (
         <div className="grid gap-6 lg:grid-cols-[340px_1fr]">
-          <section aria-labelledby="timeline-heading" className="rounded-2xl border bg-card p-5 shadow-card lg:sticky lg:top-6 lg:self-start">
-            <h2 id="timeline-heading" className="mb-4 text-xl font-bold text-foreground">Timeline</h2>
+          <section
+            aria-labelledby="timeline-heading"
+            className="rounded-2xl border bg-card p-5 shadow-card lg:sticky lg:top-6 lg:self-start"
+          >
+            <h2 id="timeline-heading" className="mb-4 text-xl font-bold text-foreground">
+              Timeline
+            </h2>
             <div className="space-y-6">
               {Object.entries(months).map(([month, items]) => (
                 <div key={month}>
-                  <p className="mb-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">{month}</p>
+                  <p className="mb-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    {month}
+                  </p>
                   <ol className="relative space-y-4 border-l-2 border-border pl-5">
                     {items.map((m) => {
                       const risk = m.kind === "deadline" && isAtRisk(m.s, docs[m.s.id]);
@@ -143,14 +225,26 @@ function Deadlines() {
                           <span
                             className={cn(
                               "absolute -left-[27px] top-1 flex size-3.5 items-center justify-center rounded-full ring-4 ring-card",
-                              m.kind === "deadline" ? (risk ? "bg-destructive" : "bg-primary") : "bg-accent",
+                              m.kind === "deadline"
+                                ? risk
+                                  ? "bg-destructive"
+                                  : "bg-primary"
+                                : "bg-accent",
                             )}
                           />
                           <p className="text-xs font-semibold text-muted-foreground">
-                            {formatShort(m.inDays)} · {m.inDays === 0 ? "today" : `in ${m.inDays} days`}
+                            {formatShort(m.inDays)} ·{" "}
+                            {m.inDays === 0 ? "today" : `in ${m.inDays} days`}
                           </p>
-                          <p className={cn("text-sm font-semibold", m.kind === "deadline" ? "text-foreground" : "text-foreground/80")}>
-                            {m.kind === "deadline" && <Flag className="mr-1 inline size-3.5 text-primary" />}
+                          <p
+                            className={cn(
+                              "text-sm font-semibold",
+                              m.kind === "deadline" ? "text-foreground" : "text-foreground/80",
+                            )}
+                          >
+                            {m.kind === "deadline" && (
+                              <Flag className="mr-1 inline size-3.5 text-primary" />
+                            )}
                             {m.label}
                           </p>
                           <p className="text-xs text-muted-foreground">{m.s.name}</p>
@@ -169,20 +263,33 @@ function Deadlines() {
           </section>
 
           <section aria-labelledby="check-heading" className="space-y-4">
-            <h2 id="check-heading" className="text-xl font-bold text-foreground">Document checklist</h2>
+            <h2 id="check-heading" className="text-xl font-bold text-foreground">
+              Document checklist
+            </h2>
             {active.map((s) => {
               const items = docItems(s, docs[s.id]);
               const r = readiness(s, docs[s.id]);
               const risk = isAtRisk(s, docs[s.id]);
               return (
-                <article key={s.id} className={cn("rounded-2xl border bg-card p-5 shadow-card", risk && "border-destructive/40")}>
+                <article
+                  key={s.id}
+                  className={cn(
+                    "rounded-2xl border bg-card p-5 shadow-card",
+                    risk && "border-destructive/40",
+                  )}
+                >
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <Link to="/scholarships/$id" params={{ id: s.id }} className="font-display text-lg font-bold text-foreground hover:text-primary">
+                      <Link
+                        to="/scholarships/$id"
+                        params={{ id: s.id }}
+                        className="font-display text-lg font-bold text-foreground hover:text-primary"
+                      >
                         {s.name}
                       </Link>
                       <p className="text-sm text-muted-foreground">
-                        {formatMoney(s.amount)} · Due {formatShort(s.deadlineInDays)} ({relativeLabel(s.deadlineInDays).toLowerCase()}) · {s.portal}
+                        {formatMoney(s.amount)} · Due {formatShort(s.deadlineInDays)} (
+                        {relativeLabel(s.deadlineInDays).toLowerCase()}) · {s.portal}
                       </p>
                     </div>
                     <DropdownMenu>
@@ -192,8 +299,16 @@ function Deadlines() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem onSelect={() => exportToCalendar("Google Calendar", s.name)}>Google Calendar</DropdownMenuItem>
-                        <DropdownMenuItem onSelect={() => exportToCalendar("Apple Calendar", s.name)}>Apple Calendar</DropdownMenuItem>
+                        <DropdownMenuItem
+                          onSelect={() => exportToCalendar("Google Calendar", s.name)}
+                        >
+                          Google Calendar
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onSelect={() => exportToCalendar("Apple Calendar", s.name)}
+                        >
+                          Apple Calendar
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
@@ -203,8 +318,16 @@ function Deadlines() {
                     <span className="text-sm font-bold text-foreground">{r}% ready</span>
                   </div>
                   {risk && (
-                    <p role="alert" className="mt-3 flex items-center gap-2 rounded-lg bg-destructive-soft px-3 py-2 text-sm font-medium text-destructive">
-                      <AlertTriangle className="size-4" /> Due in {s.deadlineInDays} days with {items.filter((i) => i.status === "not-started" || i.status === "requested").length} materials still outstanding.
+                    <p
+                      role="alert"
+                      className="mt-3 flex items-center gap-2 rounded-lg bg-destructive-soft px-3 py-2 text-sm font-medium text-destructive"
+                    >
+                      <AlertTriangle className="size-4" /> Due in {s.deadlineInDays} days with{" "}
+                      {
+                        items.filter((i) => i.status === "not-started" || i.status === "requested")
+                          .length
+                      }{" "}
+                      materials still outstanding.
                     </p>
                   )}
                   {r === 100 && (
@@ -215,9 +338,16 @@ function Deadlines() {
 
                   <ul className="mt-4 divide-y">
                     {items.map((item) => (
-                      <li key={item.key} className="flex flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between">
+                      <li
+                        key={item.key}
+                        className="flex flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between"
+                      >
                         <span className="text-sm font-semibold text-foreground">{item.label}</span>
-                        <div role="radiogroup" aria-label={`${item.label} status`} className="inline-flex rounded-full bg-muted p-1">
+                        <div
+                          role="radiogroup"
+                          aria-label={`${item.label} status`}
+                          className="inline-flex rounded-full bg-muted p-1"
+                        >
                           {DOC_STATUS_ORDER.map((st) => (
                             <button
                               key={st}
@@ -226,7 +356,9 @@ function Deadlines() {
                               onClick={() => setDocStatus(s.id, item.key, st)}
                               className={cn(
                                 "rounded-full px-2.5 py-1 text-xs font-semibold transition-colors",
-                                item.status === st ? STATUS_STYLE[st] + " shadow-sm" : "text-muted-foreground hover:text-foreground",
+                                item.status === st
+                                  ? STATUS_STYLE[st] + " shadow-sm"
+                                  : "text-muted-foreground hover:text-foreground",
                               )}
                             >
                               {DOC_STATUS_LABEL[st]}

@@ -11,9 +11,20 @@ import { useAppStore } from "@/lib/store/app-store";
 import type { Scholarship } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-export function eligibilitySummary(m: MatchResult): { text: string; tone: "success" | "warning" | "destructive" } {
-  if (m.unmet.length) return { text: `Doesn't meet ${m.unmet.length} rule${m.unmet.length > 1 ? "s" : ""}: ${(m.unmet[0]?.label ?? "").toLowerCase()}`, tone: "destructive" };
-  if (m.verify.length) return { text: `Meets ${m.met.length} of ${m.checks.length} rules · ${m.verify.length} to verify`, tone: "warning" };
+export function eligibilitySummary(m: MatchResult): {
+  text: string;
+  tone: "success" | "warning" | "destructive";
+} {
+  if (m.unmet.length)
+    return {
+      text: `Doesn't meet ${m.unmet.length} rule${m.unmet.length > 1 ? "s" : ""}: ${(m.unmet[0]?.label ?? "").toLowerCase()}`,
+      tone: "destructive",
+    };
+  if (m.verify.length)
+    return {
+      text: `Meets ${m.met.length} of ${m.checks.length} rules · ${m.verify.length} to verify`,
+      tone: "warning",
+    };
   return { text: `Meets all ${m.checks.length} eligibility rules`, tone: "success" };
 }
 
@@ -44,7 +55,15 @@ export function SaveButton({ id, compact }: { id: string; compact?: boolean }) {
   );
 }
 
-export function ScholarshipCard({ s, match, className }: { s: Scholarship; match: MatchResult; className?: string }) {
+export function ScholarshipCard({
+  s,
+  match,
+  className,
+}: {
+  s: Scholarship;
+  match: MatchResult;
+  className?: string;
+}) {
   const summary = eligibilitySummary(match);
   const urgent = s.deadlineInDays >= 0 && s.deadlineInDays <= 14;
   return (
@@ -63,7 +82,9 @@ export function ScholarshipCard({ s, match, className }: { s: Scholarship; match
             <ScopeBadge s={s} />
             <VerifiedBadge s={s} />
           </div>
-          <h3 className="font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary">{s.name}</h3>
+          <h3 className="font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary">
+            {s.name}
+          </h3>
           <p className="text-sm text-muted-foreground">{s.provider}</p>
         </div>
         <SaveButton id={s.id} compact />
@@ -82,14 +103,23 @@ export function ScholarshipCard({ s, match, className }: { s: Scholarship; match
 
       <div className="mt-auto flex flex-wrap items-end justify-between gap-3 pt-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Award</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Award
+          </p>
           <p className="font-display text-2xl font-bold text-foreground">
             {formatMoney(s.amount)}
-            {s.renewable && <span className="ml-1 text-xs font-semibold text-muted-foreground">/ yr</span>}
+            {s.renewable && (
+              <span className="ml-1 text-xs font-semibold text-muted-foreground">/ yr</span>
+            )}
           </p>
         </div>
         <div className="text-right">
-          <p className={cn("inline-flex items-center gap-1 text-sm font-semibold", urgent ? "text-destructive" : "text-foreground")}>
+          <p
+            className={cn(
+              "inline-flex items-center gap-1 text-sm font-semibold",
+              urgent ? "text-destructive" : "text-foreground",
+            )}
+          >
             <CalendarClock className="size-4" /> {formatShort(s.deadlineInDays)}
           </p>
           <p className="text-xs text-muted-foreground">{relativeLabel(s.deadlineInDays)}</p>

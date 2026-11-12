@@ -1,5 +1,18 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, BadgeCheck, Bot, CalendarClock, ExternalLink, FileText, Landmark, Layers, PenLine, ShieldQuestion, Users, Wallet } from "lucide-react";
+import {
+  ArrowLeft,
+  BadgeCheck,
+  Bot,
+  CalendarClock,
+  ExternalLink,
+  FileText,
+  Landmark,
+  Layers,
+  PenLine,
+  ShieldQuestion,
+  Users,
+  Wallet,
+} from "lucide-react";
 
 import { EligibilityList } from "@/components/scholarship/eligibility-list";
 import { MatchRing } from "@/components/scholarship/match-ring";
@@ -31,7 +44,10 @@ export const Route = createFileRoute("/_student/scholarships/$id")({
           { property: "og:type", content: "article" },
           { name: "twitter:card", content: "summary" },
         ]
-      : [{ title: "Scholarship unavailable — Application Buddy" }, { name: "robots", content: "noindex" }],
+      : [
+          { title: "Scholarship unavailable — Application Buddy" },
+          { name: "robots", content: "noindex" },
+        ],
   }),
   notFoundComponent: () => (
     <div className="py-20 text-center">
@@ -45,7 +61,11 @@ export const Route = createFileRoute("/_student/scholarships/$id")({
   component: Detail,
 });
 
-const STACKING_LABEL = { allowed: "Stacks with other aid", limited: "Limited stacking", "not-allowed": "Does not stack" } as const;
+const STACKING_LABEL = {
+  allowed: "Stacks with other aid",
+  limited: "Limited stacking",
+  "not-allowed": "Does not stack",
+} as const;
 
 function Detail() {
   const { id } = Route.useParams();
@@ -57,7 +77,10 @@ function Detail() {
 
   return (
     <div className="animate-rise">
-      <Link to="/scholarships" className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground">
+      <Link
+        to="/scholarships"
+        className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground"
+      >
         <ArrowLeft className="size-4" /> All scholarships
       </Link>
 
@@ -68,24 +91,51 @@ function Detail() {
               <ScopeBadge s={s} />
               <VerifiedBadge s={s} />
               <ResidencyBadge s={s} />
-              {s.applicantPool === "small" && <Badge variant="muted"><Users /> Small applicant pool</Badge>}
-              {stageInfo && <Badge className={cn(stageInfo.soft, stageInfo.text)}>{stageInfo.label}</Badge>}
+              {s.applicantPool === "small" && (
+                <Badge variant="muted">
+                  <Users /> Small applicant pool
+                </Badge>
+              )}
+              {stageInfo && (
+                <Badge className={cn(stageInfo.soft, stageInfo.text)}>{stageInfo.label}</Badge>
+              )}
             </div>
             <h1 className="text-3xl font-bold text-foreground sm:text-4xl">{s.name}</h1>
             <p className="mt-1 text-muted-foreground">Offered by {s.provider}</p>
             <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Award</p>
-                <p className="font-display text-2xl font-bold text-foreground">{formatMoney(s.amount)}</p>
-                <p className="text-xs text-muted-foreground">{s.renewable ? "Renewable each year" : "One-time award"}</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Award
+                </p>
+                <p className="font-display text-2xl font-bold text-foreground">
+                  {formatMoney(s.amount)}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {s.renewable ? "Renewable each year" : "One-time award"}
+                </p>
               </div>
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Deadline</p>
-                <p className="font-display text-2xl font-bold text-foreground">{formatDeadline(s.deadlineInDays)}</p>
-                <p className={cn("text-xs", s.deadlineInDays <= 14 ? "font-semibold text-destructive" : "text-muted-foreground")}>{relativeLabel(s.deadlineInDays)}</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Deadline
+                </p>
+                <p className="font-display text-2xl font-bold text-foreground">
+                  {formatDeadline(s.deadlineInDays)}
+                </p>
+                <p
+                  className={cn(
+                    "text-xs",
+                    s.deadlineInDays <= 14
+                      ? "font-semibold text-destructive"
+                      : "text-muted-foreground",
+                  )}
+                >
+                  {relativeLabel(s.deadlineInDays)}
+                </p>
               </div>
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Apply through</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Apply through
+                </p>
                 <p className="font-semibold text-foreground">{s.portal}</p>
               </div>
             </div>
@@ -94,7 +144,11 @@ function Detail() {
             <MatchRing score={match.score} size="lg" eligible={match.eligible} />
             <div>
               <p className="font-display text-lg font-bold text-foreground">
-                {match.fullyEligible ? "Fully eligible" : match.eligible ? "Likely eligible" : "Not eligible"}
+                {match.fullyEligible
+                  ? "Fully eligible"
+                  : match.eligible
+                    ? "Likely eligible"
+                    : "Not eligible"}
               </p>
               <p className="text-xs text-muted-foreground">Compatibility score</p>
               <div className="mt-3 flex flex-wrap gap-2 md:justify-center">
@@ -106,10 +160,15 @@ function Detail() {
       </header>
 
       <section className="mt-8" aria-labelledby="why-heading">
-        <h2 id="why-heading" className="text-2xl font-bold text-foreground">Why you got this score</h2>
+        <h2 id="why-heading" className="text-2xl font-bold text-foreground">
+          Why you got this score
+        </h2>
         <p className="mb-4 mt-1 text-sm text-muted-foreground">
           We checked {match.checks.length} eligibility rules against your profile
-          {match.preferenceMatches.length > 0 && <> and found shared interests in {match.preferenceMatches.join(", ")}</>}.
+          {match.preferenceMatches.length > 0 && (
+            <> and found shared interests in {match.preferenceMatches.join(", ")}</>
+          )}
+          .
         </p>
         <EligibilityList match={match} />
       </section>
@@ -117,13 +176,23 @@ function Detail() {
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
         <div className="space-y-6">
           <section className="rounded-2xl border bg-card p-6 shadow-card">
-            <h2 className="mb-1 flex items-center gap-2 text-xl font-bold text-foreground"><PenLine className="size-5 text-primary" /> Essay prompt</h2>
-            <p className="text-xs text-muted-foreground">{s.wordLimit.min}–{s.wordLimit.max} words</p>
-            <blockquote className="mt-3 border-l-4 border-accent pl-4 text-foreground">{s.essayPrompt}</blockquote>
-            <p className="mt-4 text-sm text-muted-foreground"><strong className="text-foreground">Donor mission:</strong> {s.mission}</p>
+            <h2 className="mb-1 flex items-center gap-2 text-xl font-bold text-foreground">
+              <PenLine className="size-5 text-primary" /> Essay prompt
+            </h2>
+            <p className="text-xs text-muted-foreground">
+              {s.wordLimit.min}–{s.wordLimit.max} words
+            </p>
+            <blockquote className="mt-3 border-l-4 border-accent pl-4 text-foreground">
+              {s.essayPrompt}
+            </blockquote>
+            <p className="mt-4 text-sm text-muted-foreground">
+              <strong className="text-foreground">Donor mission:</strong> {s.mission}
+            </p>
             <div className="mt-5 flex flex-wrap gap-2">
               <Button asChild>
-                <Link to="/essays" search={{ s: s.id }}>Open in essay workspace</Link>
+                <Link to="/essays" search={{ s: s.id }}>
+                  Open in essay workspace
+                </Link>
               </Button>
               <Button asChild variant="outline">
                 <Link to="/assistant" search={{ s: s.id }}>
@@ -134,15 +203,22 @@ function Detail() {
           </section>
 
           <section className="rounded-2xl border bg-card p-6 shadow-card">
-            <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-foreground"><FileText className="size-5 text-primary" /> Required materials</h2>
+            <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-foreground">
+              <FileText className="size-5 text-primary" /> Required materials
+            </h2>
             <ul className="space-y-2">
               {s.requiredMaterials.map((k) => {
                 const st = docs[s.id]?.[k];
                 return (
-                  <li key={k} className="flex items-center justify-between rounded-xl bg-muted/60 px-4 py-2.5 text-sm">
+                  <li
+                    key={k}
+                    className="flex items-center justify-between rounded-xl bg-muted/60 px-4 py-2.5 text-sm"
+                  >
                     <span className="font-semibold text-foreground">{DOC_LABELS[k]}</span>
                     {stage ? (
-                      <span className="text-xs font-semibold text-muted-foreground">{DOC_STATUS_LABEL[st ?? "not-started"]}</span>
+                      <span className="text-xs font-semibold text-muted-foreground">
+                        {DOC_STATUS_LABEL[st ?? "not-started"]}
+                      </span>
                     ) : (
                       <span className="text-xs text-muted-foreground">Required</span>
                     )}
@@ -166,7 +242,11 @@ function Detail() {
                 <Wallet className="mt-0.5 size-5 shrink-0 text-primary" />
                 <div>
                   <dt className="font-semibold text-foreground">Disbursement</dt>
-                  <dd className="text-muted-foreground">{s.disbursement === "student" ? "Paid directly to the student" : "Paid directly to the university"}</dd>
+                  <dd className="text-muted-foreground">
+                    {s.disbursement === "student"
+                      ? "Paid directly to the student"
+                      : "Paid directly to the university"}
+                  </dd>
                 </div>
               </div>
               <div className="flex gap-3">
@@ -180,15 +260,35 @@ function Detail() {
                 <CalendarClock className="mt-0.5 size-5 shrink-0 text-primary" />
                 <div>
                   <dt className="font-semibold text-foreground">Renewal</dt>
-                  <dd className="text-muted-foreground">{s.renewable ? "Renewable if you keep meeting the requirements." : "One-time award."}</dd>
+                  <dd className="text-muted-foreground">
+                    {s.renewable
+                      ? "Renewable if you keep meeting the requirements."
+                      : "One-time award."}
+                  </dd>
                 </div>
               </div>
             </dl>
           </section>
 
-          <section className={cn("rounded-2xl border p-6", s.verified ? "border-success/30 bg-success-soft" : "border-warning/30 bg-warning-soft")}>
-            <h2 className={cn("mb-3 flex items-center gap-2 text-xl font-bold", s.verified ? "text-success" : "text-warning")}>
-              {s.verified ? <BadgeCheck className="size-5" /> : <ShieldQuestion className="size-5" />}
+          <section
+            className={cn(
+              "rounded-2xl border p-6",
+              s.verified
+                ? "border-success/30 bg-success-soft"
+                : "border-warning/30 bg-warning-soft",
+            )}
+          >
+            <h2
+              className={cn(
+                "mb-3 flex items-center gap-2 text-xl font-bold",
+                s.verified ? "text-success" : "text-warning",
+              )}
+            >
+              {s.verified ? (
+                <BadgeCheck className="size-5" />
+              ) : (
+                <ShieldQuestion className="size-5" />
+              )}
               {s.verified ? "Verified listing" : "Pending verification"}
             </h2>
             <dl className="space-y-2 text-sm">
@@ -197,16 +297,26 @@ function Detail() {
                 <dd className="text-muted-foreground">{s.source}</dd>
               </div>
               <div>
-                <dt className="font-semibold text-foreground">{s.verified ? "Last verified" : "Last checked"}</dt>
+                <dt className="font-semibold text-foreground">
+                  {s.verified ? "Last verified" : "Last checked"}
+                </dt>
                 <dd className="text-muted-foreground">{formatVerified(s.lastVerifiedDaysAgo)}</dd>
               </div>
               <div>
                 <dt className="font-semibold text-foreground">Provider</dt>
-                <dd className="flex items-center gap-1 text-muted-foreground"><Landmark className="size-3.5" /> {s.provider}</dd>
+                <dd className="flex items-center gap-1 text-muted-foreground">
+                  <Landmark className="size-3.5" /> {s.provider}
+                </dd>
               </div>
             </dl>
-            {!s.verified && <p className="mt-3 text-sm text-foreground">Double-check the details with the provider before you apply.</p>}
-            <p className="mt-4 inline-flex items-center gap-1 text-xs text-muted-foreground"><ExternalLink className="size-3" /> Provider link unavailable in this prototype</p>
+            {!s.verified && (
+              <p className="mt-3 text-sm text-foreground">
+                Double-check the details with the provider before you apply.
+              </p>
+            )}
+            <p className="mt-4 inline-flex items-center gap-1 text-xs text-muted-foreground">
+              <ExternalLink className="size-3" /> Provider link unavailable in this prototype
+            </p>
           </section>
         </div>
       </div>

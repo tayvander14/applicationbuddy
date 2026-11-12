@@ -1,4 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 
 import { DEMO_APPLICATIONS, DEMO_DOCS, DEMO_STUDENT, BLANK_STUDENT } from "@/lib/data/student";
 import { getScholarship } from "@/lib/data/scholarships";
@@ -64,12 +72,23 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
 
   const signInDemo = useCallback(() => setState(demoState(true)), []);
   const startFresh = useCallback(
-    () => setState({ signedIn: true, profile: BLANK_STUDENT, applications: {}, docs: {}, essays: {}, reminders: true }),
+    () =>
+      setState({
+        signedIn: true,
+        profile: BLANK_STUDENT,
+        applications: {},
+        docs: {},
+        essays: {},
+        reminders: true,
+      }),
     [],
   );
   const signOut = useCallback(() => setState(demoState(false)), []);
   const resetDemo = useCallback(() => setState(demoState(true)), []);
-  const updateProfile = useCallback((profile: StudentProfile) => setState((s) => ({ ...s, profile })), []);
+  const updateProfile = useCallback(
+    (profile: StudentProfile) => setState((s) => ({ ...s, profile })),
+    [],
+  );
 
   const saveScholarship = useCallback((id: string) => {
     setState((s) => {
@@ -77,7 +96,9 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
       const sch = getScholarship(id);
       const docs = { ...s.docs };
       if (sch && !docs[id]) {
-        docs[id] = Object.fromEntries(sch.requiredMaterials.map((k) => [k, "not-started" as DocStatus]));
+        docs[id] = Object.fromEntries(
+          sch.requiredMaterials.map((k) => [k, "not-started" as DocStatus]),
+        );
       }
       return { ...s, applications: { ...s.applications, [id]: "saved" }, docs };
     });
@@ -92,18 +113,23 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const moveApplication = useCallback(
-    (id: string, stage: Stage) => setState((s) => ({ ...s, applications: { ...s.applications, [id]: stage } })),
+    (id: string, stage: Stage) =>
+      setState((s) => ({ ...s, applications: { ...s.applications, [id]: stage } })),
     [],
   );
 
   const setDocStatus = useCallback(
     (scholarshipId: string, doc: DocKey, status: DocStatus) =>
-      setState((s) => ({ ...s, docs: { ...s.docs, [scholarshipId]: { ...s.docs[scholarshipId], [doc]: status } } })),
+      setState((s) => ({
+        ...s,
+        docs: { ...s.docs, [scholarshipId]: { ...s.docs[scholarshipId], [doc]: status } },
+      })),
     [],
   );
 
   const setEssay = useCallback(
-    (scholarshipId: string, text: string) => setState((s) => ({ ...s, essays: { ...s.essays, [scholarshipId]: text } })),
+    (scholarshipId: string, text: string) =>
+      setState((s) => ({ ...s, essays: { ...s.essays, [scholarshipId]: text } })),
     [],
   );
 
@@ -125,7 +151,21 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
       setEssay,
       setReminders,
     }),
-    [state, hydrated, signInDemo, startFresh, signOut, resetDemo, updateProfile, saveScholarship, removeScholarship, moveApplication, setDocStatus, setEssay, setReminders],
+    [
+      state,
+      hydrated,
+      signInDemo,
+      startFresh,
+      signOut,
+      resetDemo,
+      updateProfile,
+      saveScholarship,
+      removeScholarship,
+      moveApplication,
+      setDocStatus,
+      setEssay,
+      setReminders,
+    ],
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

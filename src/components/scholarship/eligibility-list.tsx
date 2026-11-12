@@ -4,9 +4,27 @@ import type { MatchResult } from "@/lib/matching";
 import { cn } from "@/lib/utils";
 
 const GROUPS = [
-  { key: "met", title: "You meet", icon: CheckCircle2, tone: "text-success", bg: "bg-success-soft" },
-  { key: "verify", title: "Still to verify", icon: CircleHelp, tone: "text-warning", bg: "bg-warning-soft" },
-  { key: "unmet", title: "You don't meet", icon: XCircle, tone: "text-destructive", bg: "bg-destructive-soft" },
+  {
+    key: "met",
+    title: "You meet",
+    icon: CheckCircle2,
+    tone: "text-success",
+    bg: "bg-success-soft",
+  },
+  {
+    key: "verify",
+    title: "Still to verify",
+    icon: CircleHelp,
+    tone: "text-warning",
+    bg: "bg-warning-soft",
+  },
+  {
+    key: "unmet",
+    title: "You don't meet",
+    icon: XCircle,
+    tone: "text-destructive",
+    bg: "bg-destructive-soft",
+  },
 ] as const;
 
 export function EligibilityList({ match }: { match: MatchResult }) {
@@ -16,8 +34,15 @@ export function EligibilityList({ match }: { match: MatchResult }) {
         const items = match[g.key];
         const Icon = g.icon;
         return (
-          <section key={g.key} className={cn("rounded-xl p-4", g.bg)} aria-labelledby={`elig-${g.key}`}>
-            <h3 id={`elig-${g.key}`} className={cn("mb-3 flex items-center gap-2 font-sans text-sm font-bold", g.tone)}>
+          <section
+            key={g.key}
+            className={cn("rounded-xl p-4", g.bg)}
+            aria-labelledby={`elig-${g.key}`}
+          >
+            <h3
+              id={`elig-${g.key}`}
+              className={cn("mb-3 flex items-center gap-2 font-sans text-sm font-bold", g.tone)}
+            >
               <Icon className="size-4" /> {g.title} ({items.length})
             </h3>
             {items.length === 0 ? (

@@ -8,7 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { COUNTIES, INTERESTS, MAJOR_FIELDS, STATES } from "@/lib/data/geo";
 import { DEMO_STUDENT } from "@/lib/data/student";
@@ -20,9 +26,17 @@ export const Route = createFileRoute("/onboarding")({
   head: () => ({
     meta: [
       { title: "Build your profile — Application Buddy" },
-      { name: "description", content: "Tell Application Buddy about your GPA, location, major and activities to get matched with scholarships." },
+      {
+        name: "description",
+        content:
+          "Tell Application Buddy about your GPA, location, major and activities to get matched with scholarships.",
+      },
       { property: "og:title", content: "Build your profile — Application Buddy" },
-      { property: "og:description", content: "Tell Application Buddy about your GPA, location, major and activities to get matched with scholarships." },
+      {
+        property: "og:description",
+        content:
+          "Tell Application Buddy about your GPA, location, major and activities to get matched with scholarships.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -32,7 +46,17 @@ export const Route = createFileRoute("/onboarding")({
 
 const STEPS = ["About you", "Where you live", "Your goals", "Activities & eligibility"];
 
-function Field({ label, htmlFor, hint, children }: { label: string; htmlFor?: string; hint?: string; children: React.ReactNode }) {
+function Field({
+  label,
+  htmlFor,
+  hint,
+  children,
+}: {
+  label: string;
+  htmlFor?: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="space-y-1.5">
       <Label htmlFor={htmlFor} className="text-sm font-semibold text-foreground">
@@ -44,7 +68,17 @@ function Field({ label, htmlFor, hint, children }: { label: string; htmlFor?: st
   );
 }
 
-function ChoiceGroup<T extends string>({ value, options, onChange, label }: { value: T; options: { value: T; label: string }[]; onChange: (v: T) => void; label: string }) {
+function ChoiceGroup<T extends string>({
+  value,
+  options,
+  onChange,
+  label,
+}: {
+  value: T;
+  options: { value: T; label: string }[];
+  onChange: (v: T) => void;
+  label: string;
+}) {
   return (
     <div role="radiogroup" aria-label={label} className="flex flex-wrap gap-2">
       {options.map((o) => (
@@ -56,7 +90,9 @@ function ChoiceGroup<T extends string>({ value, options, onChange, label }: { va
           onClick={() => onChange(o.value)}
           className={cn(
             "rounded-full border px-4 py-2 text-sm font-semibold transition-colors",
-            value === o.value ? "border-primary bg-primary text-primary-foreground" : "border-input bg-card text-foreground hover:bg-secondary",
+            value === o.value
+              ? "border-primary bg-primary text-primary-foreground"
+              : "border-input bg-card text-foreground hover:bg-secondary",
           )}
         >
           {o.label}
@@ -81,7 +117,8 @@ function Onboarding() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated]);
 
-  const set = <K extends keyof StudentProfile>(key: K, value: StudentProfile[K]) => setDraft((d) => ({ ...d, [key]: value }));
+  const set = <K extends keyof StudentProfile>(key: K, value: StudentProfile[K]) =>
+    setDraft((d) => ({ ...d, [key]: value }));
   const counties = COUNTIES.filter((c) => c.state === draft.state);
   const county = COUNTIES.find((c) => c.name === draft.county);
 
@@ -93,7 +130,13 @@ function Onboarding() {
   ][step];
 
   const finish = () => {
-    const next = { ...draft, activities: activitiesText.split("\n").map((a) => a.trim()).filter(Boolean) };
+    const next = {
+      ...draft,
+      activities: activitiesText
+        .split("\n")
+        .map((a) => a.trim())
+        .filter(Boolean),
+    };
     updateProfile(next);
     toast.success("Profile saved", { description: "Your filters and matches are updated." });
     navigate({ to: "/dashboard" });
@@ -124,11 +167,26 @@ function Onboarding() {
             Step {step + 1} of {STEPS.length}
           </p>
           <h1 className="mt-1 text-3xl font-bold text-foreground sm:text-4xl">{STEPS[step]}</h1>
-          <Progress value={((step + 1) / STEPS.length) * 100} className="mt-4 h-2" aria-label="Profile progress" />
+          <Progress
+            value={((step + 1) / STEPS.length) * 100}
+            className="mt-4 h-2"
+            aria-label="Profile progress"
+          />
           <ol className="mt-3 hidden gap-2 text-xs text-muted-foreground sm:flex">
             {STEPS.map((s, i) => (
-              <li key={s} className={cn("flex items-center gap-1", i <= step && "font-semibold text-foreground")}>
-                {i < step ? <Check className="size-3 text-success" /> : <span className="size-1.5 rounded-full bg-current" />} {s}
+              <li
+                key={s}
+                className={cn(
+                  "flex items-center gap-1",
+                  i <= step && "font-semibold text-foreground",
+                )}
+              >
+                {i < step ? (
+                  <Check className="size-3 text-success" />
+                ) : (
+                  <span className="size-1.5 rounded-full bg-current" />
+                )}{" "}
+                {s}
                 {i < STEPS.length - 1 && <span className="mx-1 text-border">/</span>}
               </li>
             ))}
@@ -148,24 +206,45 @@ function Onboarding() {
             <>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="First name" htmlFor="firstName">
-                  <Input id="firstName" value={draft.firstName} onChange={(e) => set("firstName", e.target.value)} required />
+                  <Input
+                    id="firstName"
+                    value={draft.firstName}
+                    onChange={(e) => set("firstName", e.target.value)}
+                    required
+                  />
                 </Field>
                 <Field label="Last name" htmlFor="lastName">
-                  <Input id="lastName" value={draft.lastName} onChange={(e) => set("lastName", e.target.value)} />
+                  <Input
+                    id="lastName"
+                    value={draft.lastName}
+                    onChange={(e) => set("lastName", e.target.value)}
+                  />
                 </Field>
               </div>
               <Field label="High school" htmlFor="school">
-                <Input id="school" value={draft.school} onChange={(e) => set("school", e.target.value)} placeholder="e.g. Eastbrook High School" />
+                <Input
+                  id="school"
+                  value={draft.school}
+                  onChange={(e) => set("school", e.target.value)}
+                  placeholder="e.g. Eastbrook High School"
+                />
               </Field>
               <Field label="Grade level">
                 <ChoiceGroup<GradeLevel>
                   label="Grade level"
                   value={draft.gradeLevel}
                   onChange={(v) => set("gradeLevel", v)}
-                  options={(["9th", "10th", "11th", "12th"] as GradeLevel[]).map((g) => ({ value: g, label: `${g} grade` }))}
+                  options={(["9th", "10th", "11th", "12th"] as GradeLevel[]).map((g) => ({
+                    value: g,
+                    label: `${g} grade`,
+                  }))}
                 />
               </Field>
-              <Field label="Unweighted GPA" htmlFor="gpa" hint="On a 4.0 scale. Used to check minimum GPA rules.">
+              <Field
+                label="Unweighted GPA"
+                htmlFor="gpa"
+                hint="On a 4.0 scale. Used to check minimum GPA rules."
+              >
                 <Input
                   id="gpa"
                   type="number"
@@ -188,7 +267,13 @@ function Onboarding() {
                   value={draft.state}
                   onChange={(v) => {
                     const first = COUNTIES.find((c) => c.state === v)!;
-                    setDraft((d) => ({ ...d, state: v, county: first.name, city: first.cities[0] ?? "", district: first.district }));
+                    setDraft((d) => ({
+                      ...d,
+                      state: v,
+                      county: first.name,
+                      city: first.cities[0] ?? "",
+                      district: first.district,
+                    }));
                   }}
                   options={STATES.map((s) => ({ value: s.code, label: s.name }))}
                 />
@@ -199,7 +284,12 @@ function Onboarding() {
                     value={draft.county}
                     onValueChange={(v) => {
                       const c = COUNTIES.find((x) => x.name === v)!;
-                      setDraft((d) => ({ ...d, county: v, city: c.cities[0] ?? "", district: c.district }));
+                      setDraft((d) => ({
+                        ...d,
+                        county: v,
+                        city: c.cities[0] ?? "",
+                        district: c.district,
+                      }));
                     }}
                   >
                     <SelectTrigger aria-label="County">
@@ -229,7 +319,10 @@ function Onboarding() {
                   </Select>
                 </Field>
               </div>
-              <Field label="School district" hint="Filled in from your county. Many local awards are limited to one district.">
+              <Field
+                label="School district"
+                hint="Filled in from your county. Many local awards are limited to one district."
+              >
                 <Input value={draft.district} readOnly aria-readonly className="bg-muted" />
               </Field>
             </>
@@ -239,7 +332,12 @@ function Onboarding() {
             <>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="Intended major" htmlFor="major">
-                  <Input id="major" value={draft.intendedMajor} onChange={(e) => set("intendedMajor", e.target.value)} placeholder="e.g. Computer Science" />
+                  <Input
+                    id="major"
+                    value={draft.intendedMajor}
+                    onChange={(e) => set("intendedMajor", e.target.value)}
+                    placeholder="e.g. Computer Science"
+                  />
                 </Field>
                 <Field label="Field of study">
                   <Select value={draft.majorField} onValueChange={(v) => set("majorField", v)}>
@@ -256,7 +354,10 @@ function Onboarding() {
                   </Select>
                 </Field>
               </div>
-              <Field label="Interests" hint="Pick any that fit. These boost matching scholarships but never exclude any.">
+              <Field
+                label="Interests"
+                hint="Pick any that fit. These boost matching scholarships but never exclude any."
+              >
                 <div className="flex flex-wrap gap-2">
                   {INTERESTS.map((i) => {
                     const on = draft.interests.includes(i);
@@ -265,10 +366,17 @@ function Onboarding() {
                         key={i}
                         type="button"
                         aria-pressed={on}
-                        onClick={() => set("interests", on ? draft.interests.filter((x) => x !== i) : [...draft.interests, i])}
+                        onClick={() =>
+                          set(
+                            "interests",
+                            on ? draft.interests.filter((x) => x !== i) : [...draft.interests, i],
+                          )
+                        }
                         className={cn(
                           "rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-colors",
-                          on ? "border-primary bg-primary-soft text-primary" : "border-input bg-card text-foreground hover:bg-secondary",
+                          on
+                            ? "border-primary bg-primary-soft text-primary"
+                            : "border-input bg-card text-foreground hover:bg-secondary",
                         )}
                       >
                         {on && <Check className="mr-1 inline size-3.5" />}
@@ -283,11 +391,27 @@ function Onboarding() {
 
           {step === 3 && (
             <>
-              <Field label="Activities" htmlFor="activities" hint="One per line — clubs, jobs, sports, family responsibilities all count.">
-                <Textarea id="activities" rows={4} value={activitiesText} onChange={(e) => setActivitiesText(e.target.value)} />
+              <Field
+                label="Activities"
+                htmlFor="activities"
+                hint="One per line — clubs, jobs, sports, family responsibilities all count."
+              >
+                <Textarea
+                  id="activities"
+                  rows={4}
+                  value={activitiesText}
+                  onChange={(e) => setActivitiesText(e.target.value)}
+                />
               </Field>
               <Field label="Community service hours" htmlFor="hours">
-                <Input id="hours" type="number" min={0} value={draft.serviceHours} onChange={(e) => set("serviceHours", Number(e.target.value))} className="max-w-[140px]" />
+                <Input
+                  id="hours"
+                  type="number"
+                  min={0}
+                  value={draft.serviceHours}
+                  onChange={(e) => set("serviceHours", Number(e.target.value))}
+                  className="max-w-[140px]"
+                />
               </Field>
               <Field label="Will you be the first in your family to attend college?">
                 <ChoiceGroup<"yes" | "no" | "unsure">
@@ -313,7 +437,10 @@ function Onboarding() {
                   ]}
                 />
               </Field>
-              <Field label="Gender (optional)" hint="Only used for awards with a stated gender requirement. Leave blank to keep it private.">
+              <Field
+                label="Gender (optional)"
+                hint="Only used for awards with a stated gender requirement. Leave blank to keep it private."
+              >
                 <ChoiceGroup<string>
                   label="Gender"
                   value={draft.gender}
@@ -352,7 +479,9 @@ function Onboarding() {
             </Button>
           </div>
         </form>
-        <p className="mt-4 text-center text-xs text-muted-foreground">Your profile stays on this device in the prototype.</p>
+        <p className="mt-4 text-center text-xs text-muted-foreground">
+          Your profile stays on this device in the prototype.
+        </p>
       </div>
     </div>
   );

@@ -10,9 +10,17 @@ export const Route = createFileRoute("/sign-in")({
   head: () => ({
     meta: [
       { title: "Sign in — Application Buddy" },
-      { name: "description", content: "Enter the Application Buddy demo as a student or start a new scholarship profile." },
+      {
+        name: "description",
+        content:
+          "Enter the Application Buddy demo as a student or start a new scholarship profile.",
+      },
       { property: "og:title", content: "Sign in — Application Buddy" },
-      { property: "og:description", content: "Enter the Application Buddy demo as a student or start a new scholarship profile." },
+      {
+        property: "og:description",
+        content:
+          "Enter the Application Buddy demo as a student or start a new scholarship profile.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -33,12 +41,16 @@ function SignIn() {
         </Link>
         <div className="mt-12 text-center">
           <h1 className="text-4xl font-bold text-foreground sm:text-5xl">Welcome back</h1>
-          <p className="mt-2 text-muted-foreground">Choose how you'd like to explore this prototype.</p>
+          <p className="mt-2 text-muted-foreground">
+            Choose how you'd like to explore this prototype.
+          </p>
         </div>
 
         <div className="mt-10 grid gap-5 md:grid-cols-[1.2fr_1fr]">
           <section className="rounded-3xl border bg-card p-6 shadow-lift sm:p-8">
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Demo student account</p>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">
+              Demo student account
+            </p>
             <div className="mt-4 flex items-center gap-4">
               <div className="flex size-16 items-center justify-center rounded-full bg-sun-gradient font-display text-2xl font-bold text-accent-foreground">
                 MT
@@ -51,9 +63,16 @@ function SignIn() {
               </div>
             </div>
             <ul className="mt-5 grid gap-2 text-sm text-foreground sm:grid-cols-2">
-              <li className="flex items-center gap-2"><GraduationCap className="size-4 text-primary" /> Senior · {s.gpa} GPA</li>
-              <li className="flex items-center gap-2"><MapPin className="size-4 text-primary" /> {s.city}, {s.state}</li>
-              <li className="col-span-full text-muted-foreground">Intended major: {s.intendedMajor} · First-generation student · 6 applications in progress</li>
+              <li className="flex items-center gap-2">
+                <GraduationCap className="size-4 text-primary" /> Senior · {s.gpa} GPA
+              </li>
+              <li className="flex items-center gap-2">
+                <MapPin className="size-4 text-primary" /> {s.city}, {s.state}
+              </li>
+              <li className="col-span-full text-muted-foreground">
+                Intended major: {s.intendedMajor} · First-generation student · 6 applications in
+                progress
+              </li>
             </ul>
             <Button
               size="lg"
@@ -65,7 +84,9 @@ function SignIn() {
             >
               Continue as Maya <ArrowRight />
             </Button>
-            <p className="mt-3 text-center text-xs text-muted-foreground">Your saved filters and recommendations load automatically.</p>
+            <p className="mt-3 text-center text-xs text-muted-foreground">
+              Your saved filters and recommendations load automatically.
+            </p>
           </section>
 
           <section className="flex flex-col rounded-3xl border border-dashed border-input bg-card/70 p-6 sm:p-8">
@@ -73,7 +94,9 @@ function SignIn() {
               <UserPlus className="size-6" />
             </div>
             <h2 className="mt-4 text-2xl font-bold text-foreground">New here?</h2>
-            <p className="mt-1 text-muted-foreground">Build your own student profile in about two minutes and see your matches.</p>
+            <p className="mt-1 text-muted-foreground">
+              Build your own student profile in about two minutes and see your matches.
+            </p>
             <Button
               variant="outline"
               size="lg"

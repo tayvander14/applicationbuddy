@@ -84,10 +84,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Application Buddy — Scholarships, organized" },
-      { name: "description", content: "Find DMV, national and university scholarships you qualify for and manage every application in one place." },
+      {
+        name: "description",
+        content:
+          "Find DMV, national and university scholarships you qualify for and manage every application in one place.",
+      },
       { name: "author", content: "Team Blurds" },
       { property: "og:title", content: "Application Buddy — Scholarships, organized" },
-      { property: "og:description", content: "Find DMV, national and university scholarships you qualify for and manage every application in one place." },
+      {
+        property: "og:description",
+        content:
+          "Find DMV, national and university scholarships you qualify for and manage every application in one place.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

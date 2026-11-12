@@ -16,7 +16,11 @@ export interface KnowledgeEntry {
   source: VerifiedSource;
 }
 
-const FSA = (days: number): VerifiedSource => ({ name: "Federal Student Aid (U.S. Dept. of Education)", url: "studentaid.gov", verifiedDaysAgo: days });
+const FSA = (days: number): VerifiedSource => ({
+  name: "Federal Student Aid (U.S. Dept. of Education)",
+  url: "studentaid.gov",
+  verifiedDaysAgo: days,
+});
 
 /** Verified knowledge base. The assistant may only answer from these entries or the scholarship catalog. */
 export const KNOWLEDGE: KnowledgeEntry[] = [
@@ -27,7 +31,7 @@ export const KNOWLEDGE: KnowledgeEntry[] = [
     answer: [
       "The Student Aid Index (SAI) is a number calculated from your FAFSA. Colleges use it to figure out how much need-based aid you can receive.",
       "It is not the amount your family has to pay. A lower SAI (it can even be negative, down to −1,500) usually means more need-based aid.",
-      "The SAI replaced the old \"Expected Family Contribution\" (EFC).",
+      'The SAI replaced the old "Expected Family Contribution" (EFC).',
     ],
     source: FSA(12),
   },
@@ -55,9 +59,17 @@ export const KNOWLEDGE: KnowledgeEntry[] = [
   {
     id: "net-price",
     topic: "Net price vs. published tuition",
-    keywords: ["net price", "sticker price", "published tuition", "published price", "cost of attendance", "coa", "what will i pay"],
+    keywords: [
+      "net price",
+      "sticker price",
+      "published tuition",
+      "published price",
+      "cost of attendance",
+      "coa",
+      "what will i pay",
+    ],
     answer: [
-      "Published tuition (the \"sticker price\") is what a college lists before any aid.",
+      'Published tuition (the "sticker price") is what a college lists before any aid.',
       "Cost of attendance is bigger: tuition and fees plus housing, food, books, transportation and personal costs.",
       "Net price is cost of attendance minus grants and scholarships — the money you don't pay back. Loans don't lower your net price; they're a way to pay it.",
     ],
@@ -66,13 +78,25 @@ export const KNOWLEDGE: KnowledgeEntry[] = [
   {
     id: "stacking",
     topic: "Aid stacking and displacement",
-    keywords: ["stack", "stacking", "displacement", "displace", "combine", "reduce my aid", "outside scholarship"],
+    keywords: [
+      "stack",
+      "stacking",
+      "displacement",
+      "displace",
+      "combine",
+      "reduce my aid",
+      "outside scholarship",
+    ],
     answer: [
-      "\"Stacking\" means combining an outside scholarship with the aid your college already offered.",
+      '"Stacking" means combining an outside scholarship with the aid your college already offered.',
       "Some colleges reduce their own grants when you bring in outside money — this is called displacement. Others reduce loans or work-study first, which is better for you.",
       "Every scholarship in Application Buddy shows its stacking policy. Before you accept, ask your college's financial aid office how they apply outside awards.",
     ],
-    source: { name: "Application Buddy verified policy guide (reviewed with DMV counselors)", url: "applicationbuddy.app/guides/stacking", verifiedDaysAgo: 20 },
+    source: {
+      name: "Application Buddy verified policy guide (reviewed with DMV counselors)",
+      url: "applicationbuddy.app/guides/stacking",
+      verifiedDaysAgo: 20,
+    },
   },
   {
     id: "loans",
@@ -98,7 +122,15 @@ export const KNOWLEDGE: KnowledgeEntry[] = [
   {
     id: "aid-types",
     topic: "Grants, scholarships, loans and work-study",
-    keywords: ["grant", "grants", "types of aid", "work-study", "work study", "difference between", "free money"],
+    keywords: [
+      "grant",
+      "grants",
+      "types of aid",
+      "work-study",
+      "work study",
+      "difference between",
+      "free money",
+    ],
     answer: [
       "Grants — usually need-based, from the government or your college. You generally don't repay them.",
       "Scholarships — usually based on merit, background or interests, from colleges or outside donors. You don't repay them.",
@@ -116,7 +148,11 @@ export const KNOWLEDGE: KnowledgeEntry[] = [
       "Paid to the university: the money goes to your student account and covers your bill first.",
       "Paid to the student: you receive the money directly and can use it for education costs like books, a laptop or transportation. Some of it may count as taxable income if it isn't used for tuition, fees, books or required supplies.",
     ],
-    source: { name: "Application Buddy verified policy guide (reviewed with DMV counselors)", url: "applicationbuddy.app/guides/disbursement", verifiedDaysAgo: 20 },
+    source: {
+      name: "Application Buddy verified policy guide (reviewed with DMV counselors)",
+      url: "applicationbuddy.app/guides/disbursement",
+      verifiedDaysAgo: 20,
+    },
   },
   {
     id: "css",
@@ -126,7 +162,11 @@ export const KNOWLEDGE: KnowledgeEntry[] = [
       "The CSS Profile is a separate financial aid application run by the College Board. Some private colleges use it to award their own grants.",
       "Unlike the FAFSA, it may have a fee, though fee waivers are available. Check each college's website to see whether it's required.",
     ],
-    source: { name: "College Board CSS Profile help center", url: "cssprofile.collegeboard.org", verifiedDaysAgo: 30 },
+    source: {
+      name: "College Board CSS Profile help center",
+      url: "cssprofile.collegeboard.org",
+      verifiedDaysAgo: 30,
+    },
   },
   {
     id: "merit-need",
@@ -134,7 +174,7 @@ export const KNOWLEDGE: KnowledgeEntry[] = [
     keywords: ["merit", "need-based", "need based", "financial need"],
     answer: [
       "Merit-based aid rewards things like grades, talent or leadership. Need-based aid depends on your family's finances, usually measured by your FAFSA (and sometimes the CSS Profile).",
-      "Some scholarships combine both — Application Buddy marks a \"Demonstrated financial need\" rule as something to verify with your FAFSA Submission Summary.",
+      'Some scholarships combine both — Application Buddy marks a "Demonstrated financial need" rule as something to verify with your FAFSA Submission Summary.',
     ],
     source: FSA(12),
   },
@@ -146,21 +186,48 @@ export const KNOWLEDGE: KnowledgeEntry[] = [
       "A renewable scholarship can be paid again in later years if you keep meeting its conditions, such as a minimum college GPA or full-time enrollment.",
       "Read the renewal rules before you accept so you know what you need to keep it.",
     ],
-    source: { name: "Application Buddy verified policy guide (reviewed with DMV counselors)", url: "applicationbuddy.app/guides/renewal", verifiedDaysAgo: 20 },
+    source: {
+      name: "Application Buddy verified policy guide (reviewed with DMV counselors)",
+      url: "applicationbuddy.app/guides/renewal",
+      verifiedDaysAgo: 20,
+    },
   },
 ];
 
 export type AssistantReply =
   | { kind: "answer"; title: string; paragraphs: string[]; source: VerifiedSource }
-  | { kind: "documents"; scholarship: Scholarship; items: { key: DocKey; label: string; status: DocStatus }[]; readyCount: number }
-  | { kind: "eligibility"; scholarship: Scholarship; score: number; met: string[]; unmet: string[]; verify: string[] }
-  | { kind: "offer"; lines: { text: string; category: "free" | "loan" | "work" | "cost" | "unknown"; explanation: string }[] }
+  | {
+      kind: "documents";
+      scholarship: Scholarship;
+      items: { key: DocKey; label: string; status: DocStatus }[];
+      readyCount: number;
+    }
+  | {
+      kind: "eligibility";
+      scholarship: Scholarship;
+      score: number;
+      met: string[];
+      unmet: string[];
+      verify: string[];
+    }
+  | {
+      kind: "offer";
+      lines: {
+        text: string;
+        category: "free" | "loan" | "work" | "cost" | "unknown";
+        explanation: string;
+      }[];
+    }
   | { kind: "abstain"; reason: string };
 
 function findScholarship(q: string, contextId?: string): Scholarship | undefined {
   const lower = q.toLowerCase();
   const byName = SCHOLARSHIPS.find((s) => {
-    const words = s.name.toLowerCase().replace(/[^a-z0-9 ]/g, "").split(" ").filter((w) => w.length > 4);
+    const words = s.name
+      .toLowerCase()
+      .replace(/[^a-z0-9 ]/g, "")
+      .split(" ")
+      .filter((w) => w.length > 4);
     const hits = words.filter((w) => lower.includes(w)).length;
     return hits >= 2 || lower.includes(s.name.toLowerCase());
   });
@@ -169,38 +236,104 @@ function findScholarship(q: string, contextId?: string): Scholarship | undefined
 
 function classifyOfferLine(line: string) {
   const l = line.toLowerCase();
-  if (/unsubsidized/.test(l)) return { category: "loan" as const, explanation: "Unsubsidized loan — you repay it, and interest starts right away." };
-  if (/subsidized/.test(l)) return { category: "loan" as const, explanation: "Subsidized loan — you repay it; interest is covered while you're enrolled at least half-time." };
-  if (/plus/.test(l)) return { category: "loan" as const, explanation: "Parent PLUS loan — borrowed by your parent, who is responsible for repaying it." };
-  if (/loan/.test(l)) return { category: "loan" as const, explanation: "Loan — borrowed money you repay with interest." };
-  if (/work[- ]?study/.test(l)) return { category: "work" as const, explanation: "Work-study — money you earn from a part-time job; it isn't subtracted from your bill up front." };
-  if (/pell|grant/.test(l)) return { category: "free" as const, explanation: "Grant — generally doesn't need to be repaid." };
-  if (/scholarship|award/.test(l)) return { category: "free" as const, explanation: "Scholarship — doesn't need to be repaid. Check renewal rules." };
+  if (/unsubsidized/.test(l))
+    return {
+      category: "loan" as const,
+      explanation: "Unsubsidized loan — you repay it, and interest starts right away.",
+    };
+  if (/subsidized/.test(l))
+    return {
+      category: "loan" as const,
+      explanation:
+        "Subsidized loan — you repay it; interest is covered while you're enrolled at least half-time.",
+    };
+  if (/plus/.test(l))
+    return {
+      category: "loan" as const,
+      explanation:
+        "Parent PLUS loan — borrowed by your parent, who is responsible for repaying it.",
+    };
+  if (/loan/.test(l))
+    return {
+      category: "loan" as const,
+      explanation: "Loan — borrowed money you repay with interest.",
+    };
+  if (/work[- ]?study/.test(l))
+    return {
+      category: "work" as const,
+      explanation:
+        "Work-study — money you earn from a part-time job; it isn't subtracted from your bill up front.",
+    };
+  if (/pell|grant/.test(l))
+    return {
+      category: "free" as const,
+      explanation: "Grant — generally doesn't need to be repaid.",
+    };
+  if (/scholarship|award/.test(l))
+    return {
+      category: "free" as const,
+      explanation: "Scholarship — doesn't need to be repaid. Check renewal rules.",
+    };
   if (/tuition|fees|housing|room|board|meal|books|cost of attendance/.test(l))
-    return { category: "cost" as const, explanation: "A cost line — part of your cost of attendance, not aid." };
-  return { category: "unknown" as const, explanation: "I don't have verified information to classify this line. Ask your college's financial aid office." };
+    return {
+      category: "cost" as const,
+      explanation: "A cost line — part of your cost of attendance, not aid.",
+    };
+  return {
+    category: "unknown" as const,
+    explanation:
+      "I don't have verified information to classify this line. Ask your college's financial aid office.",
+  };
 }
 
 export function answerQuestion(
   question: string,
-  ctx: { profile: StudentProfile; docs: Record<string, Partial<Record<DocKey, DocStatus>>>; contextScholarshipId?: string | undefined },
+  ctx: {
+    profile: StudentProfile;
+    docs: Record<string, Partial<Record<DocKey, DocStatus>>>;
+    contextScholarshipId?: string | undefined;
+  },
 ): AssistantReply {
   const q = question.trim();
   const lower = q.toLowerCase();
-  if (!q) return { kind: "abstain", reason: "Ask me a question about a scholarship or a financial aid term." };
+  if (!q)
+    return {
+      kind: "abstain",
+      reason: "Ask me a question about a scholarship or a financial aid term.",
+    };
 
   // Pasted offer letter (several lines with dollar amounts)
   const moneyLines = q.split(/\n+/).filter((l) => /\$\s?\d/.test(l));
-  if (moneyLines.length >= 2 || (/offer letter|award letter/.test(lower) && moneyLines.length >= 1)) {
-    return { kind: "offer", lines: moneyLines.map((text) => ({ text: text.trim(), ...classifyOfferLine(text) })) };
+  if (
+    moneyLines.length >= 2 ||
+    (/offer letter|award letter/.test(lower) && moneyLines.length >= 1)
+  ) {
+    return {
+      kind: "offer",
+      lines: moneyLines.map((text) => ({ text: text.trim(), ...classifyOfferLine(text) })),
+    };
   }
 
   const scholarship = findScholarship(q, ctx.contextScholarshipId);
 
-  if (scholarship && /(document|material|need to submit|what do i need|ready|readiness|missing|checklist|require)/.test(lower)) {
+  if (
+    scholarship &&
+    /(document|material|need to submit|what do i need|ready|readiness|missing|checklist|require)/.test(
+      lower,
+    )
+  ) {
     const saved = ctx.docs[scholarship.id] ?? {};
-    const items = scholarship.requiredMaterials.map((key) => ({ key, label: DOC_LABELS[key], status: saved[key] ?? ("not-started" as DocStatus) }));
-    return { kind: "documents", scholarship, items, readyCount: items.filter((i) => i.status === "received" || i.status === "submitted").length };
+    const items = scholarship.requiredMaterials.map((key) => ({
+      key,
+      label: DOC_LABELS[key],
+      status: saved[key] ?? ("not-started" as DocStatus),
+    }));
+    return {
+      kind: "documents",
+      scholarship,
+      items,
+      readyCount: items.filter((i) => i.status === "received" || i.status === "submitted").length,
+    };
   }
 
   if (scholarship && /(eligible|qualify|match|why|can i apply)/.test(lower)) {
@@ -217,10 +350,18 @@ export function answerQuestion(
 
   let best: { entry: KnowledgeEntry; hits: number } | null = null;
   for (const entry of KNOWLEDGE) {
-    const hits = entry.keywords.filter((k) => new RegExp(`(^|[^a-z])${k.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}([^a-z]|$)`).test(lower)).length;
+    const hits = entry.keywords.filter((k) =>
+      new RegExp(`(^|[^a-z])${k.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}([^a-z]|$)`).test(lower),
+    ).length;
     if (hits > 0 && (!best || hits > best.hits)) best = { entry, hits };
   }
-  if (best) return { kind: "answer", title: best.entry.topic, paragraphs: best.entry.answer, source: best.entry.source };
+  if (best)
+    return {
+      kind: "answer",
+      title: best.entry.topic,
+      paragraphs: best.entry.answer,
+      source: best.entry.source,
+    };
 
   return {
     kind: "abstain",

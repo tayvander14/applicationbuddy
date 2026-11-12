@@ -30,15 +30,30 @@ export const SCHOLARSHIPS: Scholarship[] = [
       "Describe a problem in your community that you have worked to solve using science or technology. What did you learn, and how will your intended major help you continue this work?",
     wordLimit: { min: 400, max: 650 },
     promptRequirements: [
-      { label: "Names a specific community problem", keywords: ["community", "neighborhood", "county", "local"] },
-      { label: "Explains what you learned", keywords: ["learned", "realized", "taught me", "discovered"] },
-      { label: "Connects to your intended major", keywords: ["major", "computer science", "engineering", "study", "college"] },
+      {
+        label: "Names a specific community problem",
+        keywords: ["community", "neighborhood", "county", "local"],
+      },
+      {
+        label: "Explains what you learned",
+        keywords: ["learned", "realized", "taught me", "discovered"],
+      },
+      {
+        label: "Connects to your intended major",
+        keywords: ["major", "computer science", "engineering", "study", "college"],
+      },
     ],
     mission:
       "We invest in Montgomery County students who use STEM to strengthen their own neighborhoods and who will bring those skills back home.",
     missionThemes: [
-      { theme: "Local impact", keywords: ["montgomery", "silver spring", "neighborhood", "community", "local"] },
-      { theme: "STEM problem-solving", keywords: ["code", "build", "robot", "data", "design", "engineer", "program"] },
+      {
+        theme: "Local impact",
+        keywords: ["montgomery", "silver spring", "neighborhood", "community", "local"],
+      },
+      {
+        theme: "STEM problem-solving",
+        keywords: ["code", "build", "robot", "data", "design", "engineer", "program"],
+      },
       { theme: "Giving back", keywords: ["teach", "tutor", "mentor", "volunteer", "help"] },
     ],
     verified: true,
@@ -73,11 +88,21 @@ export const SCHOLARSHIPS: Scholarship[] = [
       "Rotary's motto is \"Service Above Self.\" Tell us about a time your service changed someone else's day, and how it changed you.",
     wordLimit: { min: 300, max: 500 },
     promptRequirements: [
-      { label: "Describes a specific act of service", keywords: ["volunteer", "service", "helped", "tutor", "served"] },
-      { label: "Shows impact on someone else", keywords: ["student", "neighbor", "family", "kid", "they"] },
-      { label: "Reflects on personal growth", keywords: ["changed me", "learned", "grew", "realized"] },
+      {
+        label: "Describes a specific act of service",
+        keywords: ["volunteer", "service", "helped", "tutor", "served"],
+      },
+      {
+        label: "Shows impact on someone else",
+        keywords: ["student", "neighbor", "family", "kid", "they"],
+      },
+      {
+        label: "Reflects on personal growth",
+        keywords: ["changed me", "learned", "grew", "realized"],
+      },
     ],
-    mission: "Rotary supports young people who put service above self and lead in their communities.",
+    mission:
+      "Rotary supports young people who put service above self and lead in their communities.",
     missionThemes: [
       { theme: "Service above self", keywords: ["service", "volunteer", "help", "serve"] },
       { theme: "Leadership", keywords: ["lead", "captain", "organize", "started"] },
@@ -115,13 +140,26 @@ export const SCHOLARSHIPS: Scholarship[] = [
       "Describe a technical project you led or contributed to. What obstacle did you face, and how will you encourage other young women to pursue engineering?",
     wordLimit: { min: 350, max: 600 },
     promptRequirements: [
-      { label: "Describes a technical project", keywords: ["project", "robot", "app", "code", "built", "design"] },
-      { label: "Names an obstacle", keywords: ["obstacle", "challenge", "failed", "problem", "struggled"] },
-      { label: "Plans to encourage other young women", keywords: ["girls", "women", "young women", "encourage", "mentor"] },
+      {
+        label: "Describes a technical project",
+        keywords: ["project", "robot", "app", "code", "built", "design"],
+      },
+      {
+        label: "Names an obstacle",
+        keywords: ["obstacle", "challenge", "failed", "problem", "struggled"],
+      },
+      {
+        label: "Plans to encourage other young women",
+        keywords: ["girls", "women", "young women", "encourage", "mentor"],
+      },
     ],
-    mission: "We close the gender gap in engineering across the Chesapeake region by backing women who lift others up.",
+    mission:
+      "We close the gender gap in engineering across the Chesapeake region by backing women who lift others up.",
     missionThemes: [
-      { theme: "Technical depth", keywords: ["code", "robot", "sensor", "design", "build", "engineer"] },
+      {
+        theme: "Technical depth",
+        keywords: ["code", "robot", "sensor", "design", "build", "engineer"],
+      },
       { theme: "Lifting others up", keywords: ["mentor", "teach", "encourage", "girls", "women"] },
       { theme: "Persistence", keywords: ["failed", "again", "challenge", "kept", "obstacle"] },
     ],
@@ -145,7 +183,8 @@ export const SCHOLARSHIPS: Scholarship[] = [
     deadlineInDays: 48,
     disbursement: "university",
     stacking: "limited",
-    stackingNote: "Some colleges may reduce institutional grants when this award is added. Ask your college how outside aid is applied.",
+    stackingNote:
+      "Some colleges may reduce institutional grants when this award is added. Ask your college how outside aid is applied.",
     residency: null,
     minGpa: 3.0,
     majorFields: null,
@@ -159,13 +198,26 @@ export const SCHOLARSHIPS: Scholarship[] = [
       "As a first-generation college student, what does going to college mean for you and the people around you? Share one moment that shaped this goal.",
     wordLimit: { min: 500, max: 800 },
     promptRequirements: [
-      { label: "Speaks to first-generation experience", keywords: ["first-generation", "first in my family", "first generation", "parents"] },
-      { label: "Describes one shaping moment", keywords: ["moment", "day", "when i", "that night", "remember"] },
-      { label: "Explains impact on others", keywords: ["family", "brother", "sister", "community", "others"] },
+      {
+        label: "Speaks to first-generation experience",
+        keywords: ["first-generation", "first in my family", "first generation", "parents"],
+      },
+      {
+        label: "Describes one shaping moment",
+        keywords: ["moment", "day", "when i", "that night", "remember"],
+      },
+      {
+        label: "Explains impact on others",
+        keywords: ["family", "brother", "sister", "community", "others"],
+      },
     ],
-    mission: "Horizon opens doors for first-generation students and walks with them through graduation.",
+    mission:
+      "Horizon opens doors for first-generation students and walks with them through graduation.",
     missionThemes: [
-      { theme: "First-generation journey", keywords: ["first-generation", "first in my family", "parents", "family"] },
+      {
+        theme: "First-generation journey",
+        keywords: ["first-generation", "first in my family", "parents", "family"],
+      },
       { theme: "Resilience", keywords: ["work", "job", "balance", "kept", "despite"] },
       { theme: "Paying it forward", keywords: ["mentor", "help", "teach", "younger", "community"] },
     ],
@@ -196,11 +248,18 @@ export const SCHOLARSHIPS: Scholarship[] = [
     gradeLevels: ["11th", "12th"],
     preferredInterests: ["STEM", "Entrepreneurship"],
     requiredMaterials: ["essay", "portfolio", "resume"],
-    essayPrompt: "Share a piece of software you built. Who was it for, and what would you build next?",
+    essayPrompt:
+      "Share a piece of software you built. Who was it for, and what would you build next?",
     wordLimit: { min: 250, max: 400 },
     promptRequirements: [
-      { label: "Describes software you built", keywords: ["app", "website", "program", "code", "built"] },
-      { label: "Names who it was for", keywords: ["for my", "users", "students", "team", "people"] },
+      {
+        label: "Describes software you built",
+        keywords: ["app", "website", "program", "code", "built"],
+      },
+      {
+        label: "Names who it was for",
+        keywords: ["for my", "users", "students", "team", "people"],
+      },
       { label: "Says what you'd build next", keywords: ["next", "future", "would build", "plan"] },
     ],
     mission: "We fund students who write code that helps real people.",
@@ -241,9 +300,13 @@ export const SCHOLARSHIPS: Scholarship[] = [
     wordLimit: { min: 200, max: 400 },
     promptRequirements: [
       { label: "Mentions the library", keywords: ["library"] },
-      { label: "Describes learning or neighborhood impact", keywords: ["learn", "neighborhood", "community"] },
+      {
+        label: "Describes learning or neighborhood impact",
+        keywords: ["learn", "neighborhood", "community"],
+      },
     ],
-    mission: "Friends of Long Branch Library celebrates young people who make the library a place for everyone.",
+    mission:
+      "Friends of Long Branch Library celebrates young people who make the library a place for everyone.",
     missionThemes: [
       { theme: "Library as community", keywords: ["library", "community", "neighborhood"] },
       { theme: "Learning", keywords: ["learn", "read", "tutor"] },
@@ -276,11 +339,15 @@ export const SCHOLARSHIPS: Scholarship[] = [
     gradeLevels: ["12th"],
     preferredInterests: ["STEM"],
     requiredMaterials: ["essay", "transcript", "resume"],
-    essayPrompt: "What problem would you most like to solve with engineering or computing, and why at Potomac?",
+    essayPrompt:
+      "What problem would you most like to solve with engineering or computing, and why at Potomac?",
     wordLimit: { min: 250, max: 500 },
     promptRequirements: [
       { label: "Names a problem to solve", keywords: ["problem", "solve", "challenge"] },
-      { label: "Explains why this university", keywords: ["potomac", "university", "campus", "program"] },
+      {
+        label: "Explains why this university",
+        keywords: ["potomac", "university", "campus", "program"],
+      },
     ],
     mission: "Potomac rewards future engineers who pair technical talent with purpose.",
     missionThemes: [
@@ -315,12 +382,22 @@ export const SCHOLARSHIPS: Scholarship[] = [
     gradeLevels: ["11th", "12th"],
     preferredInterests: ["Civic engagement", "Leadership"],
     requiredMaterials: ["essay"],
-    essayPrompt: "Pick one local issue in the DMV that matters to you. What should leaders do about it, and what are you already doing?",
+    essayPrompt:
+      "Pick one local issue in the DMV that matters to you. What should leaders do about it, and what are you already doing?",
     wordLimit: { min: 300, max: 600 },
     promptRequirements: [
-      { label: "Names a local DMV issue", keywords: ["dc", "maryland", "virginia", "county", "metro", "local"] },
-      { label: "Recommends action for leaders", keywords: ["leaders", "council", "should", "policy"] },
-      { label: "Describes your own action", keywords: ["i started", "i organized", "i volunteer", "i have"] },
+      {
+        label: "Names a local DMV issue",
+        keywords: ["dc", "maryland", "virginia", "county", "metro", "local"],
+      },
+      {
+        label: "Recommends action for leaders",
+        keywords: ["leaders", "council", "should", "policy"],
+      },
+      {
+        label: "Describes your own action",
+        keywords: ["i started", "i organized", "i volunteer", "i have"],
+      },
     ],
     mission: "We amplify young people who speak up and show up for their communities.",
     missionThemes: [
@@ -395,7 +472,9 @@ export const SCHOLARSHIPS: Scholarship[] = [
     requiredMaterials: ["essay", "recommendation", "residency-proof"],
     essayPrompt: "Tell us about a time you led change on your block or at your school.",
     wordLimit: { min: 250, max: 450 },
-    promptRequirements: [{ label: "Describes leading change", keywords: ["led", "organized", "started"] }],
+    promptRequirements: [
+      { label: "Describes leading change", keywords: ["led", "organized", "started"] },
+    ],
     mission: "Backing DC students who lead where they live.",
     missionThemes: [{ theme: "Leading locally", keywords: ["led", "block", "ward", "school"] }],
     verified: true,
@@ -425,9 +504,12 @@ export const SCHOLARSHIPS: Scholarship[] = [
     gradeLevels: ["12th"],
     preferredInterests: ["STEM"],
     requiredMaterials: ["essay", "transcript", "recommendation"],
-    essayPrompt: "How will technology shape Northern Virginia in the next decade, and what part will you play?",
+    essayPrompt:
+      "How will technology shape Northern Virginia in the next decade, and what part will you play?",
     wordLimit: { min: 300, max: 500 },
-    promptRequirements: [{ label: "Mentions Northern Virginia", keywords: ["virginia", "fairfax"] }],
+    promptRequirements: [
+      { label: "Mentions Northern Virginia", keywords: ["virginia", "fairfax"] },
+    ],
     mission: "Growing the next generation of Northern Virginia technologists.",
     missionThemes: [{ theme: "Regional tech", keywords: ["virginia", "tech", "fairfax"] }],
     verified: true,
@@ -492,7 +574,9 @@ export const SCHOLARSHIPS: Scholarship[] = [
     requiredMaterials: ["essay", "transcript", "fafsa"],
     essayPrompt: "Why do you want to work in health care in Maryland?",
     wordLimit: { min: 300, max: 500 },
-    promptRequirements: [{ label: "Explains health care goal", keywords: ["health", "nurse", "patient"] }],
+    promptRequirements: [
+      { label: "Explains health care goal", keywords: ["health", "nurse", "patient"] },
+    ],
     mission: "Building Maryland's health care workforce.",
     missionThemes: [{ theme: "Care", keywords: ["patient", "care", "health"] }],
     verified: true,
@@ -524,7 +608,12 @@ export const SCHOLARSHIPS: Scholarship[] = [
     requiredMaterials: ["essay", "transcript", "recommendation"],
     essayPrompt: "Describe how you would contribute to the Capital State community.",
     wordLimit: { min: 300, max: 650 },
-    promptRequirements: [{ label: "Describes a contribution to campus", keywords: ["campus", "community", "contribute"] }],
+    promptRequirements: [
+      {
+        label: "Describes a contribution to campus",
+        keywords: ["campus", "community", "contribute"],
+      },
+    ],
     mission: "Recognizing exceptional scholars and leaders.",
     missionThemes: [{ theme: "Leadership", keywords: ["lead", "captain", "president"] }],
     verified: true,
@@ -558,7 +647,12 @@ export const SCHOLARSHIPS: Scholarship[] = [
     requiredMaterials: ["essay", "service-log"],
     essayPrompt: "Describe a hands-on project that protected the environment in your community.",
     wordLimit: { min: 250, max: 500 },
-    promptRequirements: [{ label: "Describes an environmental project", keywords: ["environment", "trees", "clean", "recycle", "creek"] }],
+    promptRequirements: [
+      {
+        label: "Describes an environmental project",
+        keywords: ["environment", "trees", "clean", "recycle", "creek"],
+      },
+    ],
     mission: "Supporting young environmental stewards.",
     missionThemes: [{ theme: "Stewardship", keywords: ["environment", "clean", "protect"] }],
     verified: false,
@@ -590,7 +684,9 @@ export const SCHOLARSHIPS: Scholarship[] = [
     requiredMaterials: ["portfolio", "essay"],
     essayPrompt: "Introduce one piece in your portfolio and what it says about you.",
     wordLimit: { min: 150, max: 300 },
-    promptRequirements: [{ label: "Introduces a portfolio piece", keywords: ["piece", "painting", "portfolio"] }],
+    promptRequirements: [
+      { label: "Introduces a portfolio piece", keywords: ["piece", "painting", "portfolio"] },
+    ],
     mission: "Celebrating Howard County's young artists.",
     missionThemes: [{ theme: "Creative voice", keywords: ["art", "create", "paint"] }],
     verified: true,

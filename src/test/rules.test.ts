@@ -43,7 +43,9 @@ describe("essay checks", () => {
   });
 
   it("detects the cliché 'hard worker'", () => {
-    expect(analyzeEssay("I am a hard worker", limits).cliches.map((c) => c.phrase)).toContain("hard worker");
+    expect(analyzeEssay("I am a hard worker", limits).cliches.map((c) => c.phrase)).toContain(
+      "hard worker",
+    );
   });
 });
 
