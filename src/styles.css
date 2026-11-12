@@ -147,7 +147,8 @@
   --gradient-sun: linear-gradient(120deg, oklch(0.88 0.13 86), oklch(0.83 0.14 70));
 
   --elevation-card: 0 1px 2px oklch(0.3 0.04 235 / 0.06), 0 4px 16px -6px oklch(0.3 0.04 235 / 0.1);
-  --elevation-lift: 0 2px 4px oklch(0.3 0.04 235 / 0.06), 0 18px 40px -16px oklch(0.3 0.06 220 / 0.28);
+  --elevation-lift:
+    0 2px 4px oklch(0.3 0.04 235 / 0.06), 0 18px 40px -16px oklch(0.3 0.06 220 / 0.28);
   --elevation-glow: 0 10px 30px -10px color-mix(in oklab, var(--primary) 45%, transparent);
 }
 

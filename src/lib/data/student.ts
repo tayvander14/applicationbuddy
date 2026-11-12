@@ -58,10 +58,35 @@ export const DEMO_APPLICATIONS: Record<string, Stage> = {
 };
 
 export const DEMO_DOCS: Record<string, Partial<Record<DocKey, DocStatus>>> = {
-  "mc-stem-pathways": { essay: "requested", transcript: "received", recommendation: "requested", fafsa: "submitted" },
-  "silver-spring-rotary": { essay: "not-started", transcript: "requested", recommendation: "not-started", "service-log": "received" },
-  "chesapeake-women-engineering": { essay: "not-started", transcript: "not-started", recommendation: "not-started", resume: "not-started" },
-  "horizon-first-gen": { essay: "not-started", transcript: "not-started", recommendation: "not-started", "second-recommendation": "not-started", fafsa: "received" },
+  "mc-stem-pathways": {
+    essay: "requested",
+    transcript: "received",
+    recommendation: "requested",
+    fafsa: "submitted",
+  },
+  "silver-spring-rotary": {
+    essay: "not-started",
+    transcript: "requested",
+    recommendation: "not-started",
+    "service-log": "received",
+  },
+  "chesapeake-women-engineering": {
+    essay: "not-started",
+    transcript: "not-started",
+    recommendation: "not-started",
+    resume: "not-started",
+  },
+  "horizon-first-gen": {
+    essay: "not-started",
+    transcript: "not-started",
+    recommendation: "not-started",
+    "second-recommendation": "not-started",
+    fafsa: "received",
+  },
   "future-coders": { essay: "submitted", portfolio: "submitted", resume: "submitted" },
-  "long-branch-library": { essay: "submitted", "service-log": "submitted", recommendation: "submitted" },
+  "long-branch-library": {
+    essay: "submitted",
+    "service-log": "submitted",
+    recommendation: "submitted",
+  },
 };

@@ -7,7 +7,13 @@ import { ScholarshipCard } from "@/components/scholarship/scholarship-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Switch } from "@/components/ui/switch";
 import { COUNTIES, MAJOR_FIELDS } from "@/lib/data/geo";
@@ -21,9 +27,17 @@ export const Route = createFileRoute("/_student/scholarships/")({
   head: () => ({
     meta: [
       { title: "Discover scholarships — Application Buddy" },
-      { name: "description", content: "Search local DMV, national and university scholarships by county, school district, major, GPA, deadline and award policy." },
+      {
+        name: "description",
+        content:
+          "Search local DMV, national and university scholarships by county, school district, major, GPA, deadline and award policy.",
+      },
       { property: "og:title", content: "Discover scholarships — Application Buddy" },
-      { property: "og:description", content: "Search local DMV, national and university scholarships by county, school district, major, GPA, deadline and award policy." },
+      {
+        property: "og:description",
+        content:
+          "Search local DMV, national and university scholarships by county, school district, major, GPA, deadline and award policy.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -83,11 +97,24 @@ const BLANK: Filters = {
   sort: "match",
 };
 
-function SelectField({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: { value: string; label: string }[] }) {
+function SelectField({
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+}) {
   const id = `f-${label.replace(/\s+/g, "-").toLowerCase()}`;
   return (
     <div className="space-y-1.5">
-      <Label htmlFor={id} className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+      <Label
+        htmlFor={id}
+        className="text-xs font-bold uppercase tracking-wider text-muted-foreground"
+      >
         {label}
       </Label>
       <Select value={value} onValueChange={onChange}>
@@ -106,7 +133,17 @@ function SelectField({ label, value, onChange, options }: { label: string; value
   );
 }
 
-function ToggleField({ label, hint, checked, onChange }: { label: string; hint?: string; checked: boolean; onChange: (v: boolean) => void }) {
+function ToggleField({
+  label,
+  hint,
+  checked,
+  onChange,
+}: {
+  label: string;
+  hint?: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
   const id = `t-${label.replace(/\s+/g, "-").toLowerCase()}`;
   return (
     <div className="flex items-start justify-between gap-3">
@@ -119,7 +156,15 @@ function ToggleField({ label, hint, checked, onChange }: { label: string; hint?:
   );
 }
 
-function FilterPanel({ f, set, profile }: { f: Filters; set: (p: Partial<Filters>) => void; profile: StudentProfile }) {
+function FilterPanel({
+  f,
+  set,
+  profile,
+}: {
+  f: Filters;
+  set: (p: Partial<Filters>) => void;
+  profile: StudentProfile;
+}) {
   const counties = COUNTIES.filter((c) => f.state === "any" || c.state === f.state);
   return (
     <div className="space-y-5">
@@ -138,19 +183,28 @@ function FilterPanel({ f, set, profile }: { f: Filters; set: (p: Partial<Filters
         label="County or city"
         value={f.county}
         onChange={(v) => set({ county: v })}
-        options={[{ value: "any", label: "Any county" }, ...counties.map((c) => ({ value: c.name, label: c.name }))]}
+        options={[
+          { value: "any", label: "Any county" },
+          ...counties.map((c) => ({ value: c.name, label: c.name })),
+        ]}
       />
       <SelectField
         label="School district"
         value={f.district}
         onChange={(v) => set({ district: v })}
-        options={[{ value: "any", label: "Any district" }, ...counties.map((c) => ({ value: c.district, label: c.district }))]}
+        options={[
+          { value: "any", label: "Any district" },
+          ...counties.map((c) => ({ value: c.district, label: c.district })),
+        ]}
       />
       <SelectField
         label="Major"
         value={f.major}
         onChange={(v) => set({ major: v })}
-        options={[{ value: "any", label: "Any major" }, ...MAJOR_FIELDS.filter((m) => m !== "Undecided").map((m) => ({ value: m, label: m }))]}
+        options={[
+          { value: "any", label: "Any major" },
+          ...MAJOR_FIELDS.filter((m) => m !== "Undecided").map((m) => ({ value: m, label: m })),
+        ]}
       />
       <SelectField
         label="Deadline"
@@ -183,15 +237,28 @@ function FilterPanel({ f, set, profile }: { f: Filters; set: (p: Partial<Filters
         ]}
       />
       <div className="space-y-4 border-t pt-5">
-        <ToggleField label={`Meets my GPA (${profile.gpa.toFixed(2)})`} checked={f.meetsGpa} onChange={(v) => set({ meetsGpa: v })} />
+        <ToggleField
+          label={`Meets my GPA (${profile.gpa.toFixed(2)})`}
+          checked={f.meetsGpa}
+          onChange={(v) => set({ meetsGpa: v })}
+        />
         <ToggleField
           label="Hide incompatible residency"
           hint={`Removes awards that require living outside ${profile.county}.`}
           checked={f.hideIncompatibleResidency}
           onChange={(v) => set({ hideIncompatibleResidency: v })}
         />
-        <ToggleField label="Stacks with other aid" hint="Won't reduce your college's grants." checked={f.stackingOnly} onChange={(v) => set({ stackingOnly: v })} />
-        <ToggleField label="Verified listings only" checked={f.verifiedOnly} onChange={(v) => set({ verifiedOnly: v })} />
+        <ToggleField
+          label="Stacks with other aid"
+          hint="Won't reduce your college's grants."
+          checked={f.stackingOnly}
+          onChange={(v) => set({ stackingOnly: v })}
+        />
+        <ToggleField
+          label="Verified listings only"
+          checked={f.verifiedOnly}
+          onChange={(v) => set({ verifiedOnly: v })}
+        />
       </div>
     </div>
   );
@@ -214,25 +281,36 @@ function Discover() {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const list = SCHOLARSHIPS.map((s) => ({ s, m: evaluateMatch(profile, s) })).filter(({ s, m }) => {
-      if (s.deadlineInDays < 0) return false;
-      if (q && !`${s.name} ${s.provider} ${s.summary}`.toLowerCase().includes(q)) return false;
-      if (f.scope !== "all" && s.scope !== f.scope) return false;
-      if (f.state !== "any" && s.state !== f.state && !(s.residency?.states?.includes(f.state) ?? false)) return false;
-      if (f.county !== "any" && !s.counties.includes(f.county)) return false;
-      if (f.district !== "any" && !s.districts.includes(f.district)) return false;
-      if (f.major !== "any" && s.majorFields && !s.majorFields.includes(f.major)) return false;
-      if (f.meetsGpa && s.minGpa !== null && profile.gpa < s.minGpa) return false;
-      if (f.deadline !== "any" && s.deadlineInDays > Number(f.deadline)) return false;
-      if (s.amount < Number(f.minAmount)) return false;
-      if (f.hideIncompatibleResidency && !m.residencyCompatible) return false;
-      if (f.disbursement !== "any" && s.disbursement !== f.disbursement) return false;
-      if (f.stackingOnly && s.stacking !== "allowed") return false;
-      if (f.verifiedOnly && !s.verified) return false;
-      return true;
-    });
+    const list = SCHOLARSHIPS.map((s) => ({ s, m: evaluateMatch(profile, s) })).filter(
+      ({ s, m }) => {
+        if (s.deadlineInDays < 0) return false;
+        if (q && !`${s.name} ${s.provider} ${s.summary}`.toLowerCase().includes(q)) return false;
+        if (f.scope !== "all" && s.scope !== f.scope) return false;
+        if (
+          f.state !== "any" &&
+          s.state !== f.state &&
+          !(s.residency?.states?.includes(f.state) ?? false)
+        )
+          return false;
+        if (f.county !== "any" && !s.counties.includes(f.county)) return false;
+        if (f.district !== "any" && !s.districts.includes(f.district)) return false;
+        if (f.major !== "any" && s.majorFields && !s.majorFields.includes(f.major)) return false;
+        if (f.meetsGpa && s.minGpa !== null && profile.gpa < s.minGpa) return false;
+        if (f.deadline !== "any" && s.deadlineInDays > Number(f.deadline)) return false;
+        if (s.amount < Number(f.minAmount)) return false;
+        if (f.hideIncompatibleResidency && !m.residencyCompatible) return false;
+        if (f.disbursement !== "any" && s.disbursement !== f.disbursement) return false;
+        if (f.stackingOnly && s.stacking !== "allowed") return false;
+        if (f.verifiedOnly && !s.verified) return false;
+        return true;
+      },
+    );
     return list.sort((a, b) =>
-      f.sort === "deadline" ? a.s.deadlineInDays - b.s.deadlineInDays : f.sort === "amount" ? b.s.amount - a.s.amount : b.m.score - a.m.score,
+      f.sort === "deadline"
+        ? a.s.deadlineInDays - b.s.deadlineInDays
+        : f.sort === "amount"
+          ? b.s.amount - a.s.amount
+          : b.m.score - a.m.score,
     );
   }, [profile, query, f]);
 
@@ -240,13 +318,18 @@ function Discover() {
 
   return (
     <div className="animate-rise">
-      <PageHeader eyebrow="Scholarship discovery" title="Find money you qualify for" description="Local DMV, national and university scholarships, ranked by how well they fit you." />
+      <PageHeader
+        eyebrow="Scholarship discovery"
+        title="Find money you qualify for"
+        description="Local DMV, national and university scholarships, ranked by how well they fit you."
+      />
 
       {fromProfile && (
         <div className="mb-5 flex flex-wrap items-center gap-3 rounded-2xl bg-primary-soft px-4 py-3 text-sm text-foreground">
           <UserRoundCheck className="size-5 text-primary" />
           <p className="flex-1">
-            Filters pre-filled from your profile: <strong>{profile.majorField}</strong> and awards open to <strong>{profile.county}</strong> residents.
+            Filters pre-filled from your profile: <strong>{profile.majorField}</strong> and awards
+            open to <strong>{profile.county}</strong> residents.
           </p>
         </div>
       )}
@@ -263,7 +346,10 @@ function Discover() {
           />
         </div>
         <div className="flex gap-2">
-          <Select value={f.sort} onValueChange={(v) => setF((p) => ({ ...p, sort: v as Filters["sort"] }))}>
+          <Select
+            value={f.sort}
+            onValueChange={(v) => setF((p) => ({ ...p, sort: v as Filters["sort"] }))}
+          >
             <SelectTrigger className="h-11 w-[170px] rounded-full bg-card" aria-label="Sort by">
               <SelectValue />
             </SelectTrigger>
@@ -296,7 +382,9 @@ function Discover() {
             onClick={() => set({ scope: s })}
             className={cn(
               "rounded-full px-4 py-1.5 text-sm font-semibold capitalize transition-colors",
-              f.scope === s ? "bg-ink text-ink-foreground" : "bg-card text-foreground shadow-card hover:bg-secondary",
+              f.scope === s
+                ? "bg-ink text-ink-foreground"
+                : "bg-card text-foreground shadow-card hover:bg-secondary",
             )}
           >
             {s === "all" ? "All" : s === "local" ? "Local DMV" : s}
@@ -320,7 +408,15 @@ function Discover() {
               </button>
             </div>
             <FilterPanel f={f} set={set} profile={profile} />
-            <Button variant="ghost" size="sm" className="mt-4 w-full" onClick={() => { setF(profileFilters(profile)); setFromProfile(true); }}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="mt-4 w-full"
+              onClick={() => {
+                setF(profileFilters(profile));
+                setFromProfile(true);
+              }}
+            >
               Reset to my profile
             </Button>
           </div>
@@ -328,14 +424,21 @@ function Discover() {
 
         <div>
           <p className="mb-4 text-sm text-muted-foreground" aria-live="polite">
-            <strong className="text-foreground">{results.length}</strong> scholarships · <strong className="text-foreground">{eligibleCount}</strong> you fully qualify for
+            <strong className="text-foreground">{results.length}</strong> scholarships ·{" "}
+            <strong className="text-foreground">{eligibleCount}</strong> you fully qualify for
           </p>
           {results.length === 0 ? (
             <EmptyState
               icon={<SearchX />}
               title="No scholarships match these filters"
               action={
-                <Button variant="outline" onClick={() => { setF(BLANK); setQuery(""); }}>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setF(BLANK);
+                    setQuery("");
+                  }}
+                >
                   Clear filters
                 </Button>
               }

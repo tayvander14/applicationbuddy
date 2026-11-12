@@ -39,7 +39,9 @@ export function evaluateMatch(profile: StudentProfile, s: Scholarship): MatchRes
       id: "state",
       label: `Lives in ${names}`,
       status: ok ? "met" : "unmet",
-      detail: ok ? `You live in ${STATE_NAMES[profile.state]}.` : `Your profile lists ${STATE_NAMES[profile.state]}.`,
+      detail: ok
+        ? `You live in ${STATE_NAMES[profile.state]}.`
+        : `Your profile lists ${STATE_NAMES[profile.state]}.`,
     });
   }
 
@@ -60,7 +62,9 @@ export function evaluateMatch(profile: StudentProfile, s: Scholarship): MatchRes
       id: "district",
       label: `Attends ${s.districts.join(" or ")}`,
       status: ok ? "met" : "unmet",
-      detail: ok ? `You attend ${profile.school || "a school"} in ${profile.district}.` : `Your profile lists ${profile.district}.`,
+      detail: ok
+        ? `You attend ${profile.school || "a school"} in ${profile.district}.`
+        : `Your profile lists ${profile.district}.`,
     });
   }
 
@@ -82,7 +86,9 @@ export function evaluateMatch(profile: StudentProfile, s: Scholarship): MatchRes
       id: "major",
       label: `Intended major in ${s.majorFields.join(" or ")}`,
       status: ok ? "met" : "unmet",
-      detail: ok ? `You plan to study ${profile.intendedMajor || profile.majorField}.` : `Your intended major is ${profile.intendedMajor || profile.majorField}.`,
+      detail: ok
+        ? `You plan to study ${profile.intendedMajor || profile.majorField}.`
+        : `Your intended major is ${profile.intendedMajor || profile.majorField}.`,
     });
   }
 
@@ -92,7 +98,9 @@ export function evaluateMatch(profile: StudentProfile, s: Scholarship): MatchRes
       id: "grade",
       label: `Open to ${s.gradeLevels.join(" and ")} graders`,
       status: ok ? "met" : "unmet",
-      detail: ok ? `You're in ${profile.gradeLevel} grade.` : `You're in ${profile.gradeLevel} grade.`,
+      detail: ok
+        ? `You're in ${profile.gradeLevel} grade.`
+        : `You're in ${profile.gradeLevel} grade.`,
     });
   }
 
@@ -107,7 +115,8 @@ export function evaluateMatch(profile: StudentProfile, s: Scholarship): MatchRes
   }
 
   if (s.firstGenRequired) {
-    const status: CheckStatus = profile.firstGen === null ? "verify" : profile.firstGen ? "met" : "unmet";
+    const status: CheckStatus =
+      profile.firstGen === null ? "verify" : profile.firstGen ? "met" : "unmet";
     checks.push({
       id: "first-gen",
       label: "First-generation college student",
@@ -122,12 +131,17 @@ export function evaluateMatch(profile: StudentProfile, s: Scholarship): MatchRes
   }
 
   if (s.genderRequirement) {
-    const status: CheckStatus = !profile.gender ? "verify" : profile.gender === s.genderRequirement ? "met" : "unmet";
+    const status: CheckStatus = !profile.gender
+      ? "verify"
+      : profile.gender === s.genderRequirement
+        ? "met"
+        : "unmet";
     checks.push({
       id: "gender",
       label: `Identifies as a ${s.genderRequirement.toLowerCase()}`,
       status,
-      detail: status === "verify" ? "You haven't shared this in your profile." : "Based on your profile.",
+      detail:
+        status === "verify" ? "You haven't shared this in your profile." : "Based on your profile.",
     });
   }
 
@@ -145,12 +159,17 @@ export function evaluateMatch(profile: StudentProfile, s: Scholarship): MatchRes
 
   if (s.citizenshipRequired) {
     const status: CheckStatus =
-      profile.citizenship === "citizen" || profile.citizenship === "eligible-noncitizen" ? "met" : "verify";
+      profile.citizenship === "citizen" || profile.citizenship === "eligible-noncitizen"
+        ? "met"
+        : "verify";
     checks.push({
       id: "citizenship",
       label: "U.S. citizen or eligible noncitizen",
       status,
-      detail: status === "met" ? "Based on your profile." : "Confirm with the donor's documentation rules.",
+      detail:
+        status === "met"
+          ? "Based on your profile."
+          : "Confirm with the donor's documentation rules.",
     });
   }
 
@@ -161,7 +180,9 @@ export function evaluateMatch(profile: StudentProfile, s: Scholarship): MatchRes
 
   const total = Math.max(checks.length, 1);
   const ruleScore = ((met.length + verify.length * 0.6) / total) * 88;
-  const prefScore = s.preferredInterests.length ? (preferenceMatches.length / s.preferredInterests.length) * 12 : 6;
+  const prefScore = s.preferredInterests.length
+    ? (preferenceMatches.length / s.preferredInterests.length) * 12
+    : 6;
   let score = Math.round(ruleScore + prefScore);
   if (unmet.length) score = Math.min(score, 55 - (unmet.length - 1) * 10);
   score = Math.max(5, Math.min(100, score));
@@ -186,5 +207,9 @@ export function evaluateMatch(profile: StudentProfile, s: Scholarship): MatchRes
 export function rankScholarships(profile: StudentProfile, list: Scholarship[]) {
   return list
     .map((s) => ({ scholarship: s, match: evaluateMatch(profile, s) }))
-    .sort((a, b) => b.match.score - a.match.score || a.scholarship.deadlineInDays - b.scholarship.deadlineInDays);
+    .sort(
+      (a, b) =>
+        b.match.score - a.match.score ||
+        a.scholarship.deadlineInDays - b.scholarship.deadlineInDays,
+    );
 }

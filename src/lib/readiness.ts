@@ -10,11 +10,18 @@ export const DOC_STATUS_LABEL: Record<DocStatus, string> = {
 };
 
 export function docItems(s: Scholarship, docs: Partial<Record<DocKey, DocStatus>> | undefined) {
-  return s.requiredMaterials.map((key) => ({ key, label: DOC_LABELS[key], status: docs?.[key] ?? ("not-started" as DocStatus) }));
+  return s.requiredMaterials.map((key) => ({
+    key,
+    label: DOC_LABELS[key],
+    status: docs?.[key] ?? ("not-started" as DocStatus),
+  }));
 }
 
 /** Share of required materials that are received or submitted (0–100). */
-export function readiness(s: Scholarship, docs: Partial<Record<DocKey, DocStatus>> | undefined): number {
+export function readiness(
+  s: Scholarship,
+  docs: Partial<Record<DocKey, DocStatus>> | undefined,
+): number {
   const items = docItems(s, docs);
   if (!items.length) return 100;
   const ready = items.filter((i) => i.status === "received" || i.status === "submitted").length;
@@ -22,6 +29,10 @@ export function readiness(s: Scholarship, docs: Partial<Record<DocKey, DocStatus
 }
 
 /** Incomplete materials within the warning window (R26). */
-export function isAtRisk(s: Scholarship, docs: Partial<Record<DocKey, DocStatus>> | undefined, windowDays = 14): boolean {
+export function isAtRisk(
+  s: Scholarship,
+  docs: Partial<Record<DocKey, DocStatus>> | undefined,
+  windowDays = 14,
+): boolean {
   return s.deadlineInDays >= 0 && s.deadlineInDays <= windowDays && readiness(s, docs) < 100;
 }

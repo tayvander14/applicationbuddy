@@ -2,6 +2,9 @@ import {
   DndContext,
   DragOverlay,
   KeyboardSensor,
+  pointerWithin,
+  rectIntersection,
+  type CollisionDetection,
   PointerSensor,
   TouchSensor,
   useDraggable,
@@ -13,12 +16,19 @@ import {
 } from "@dnd-kit/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarClock, GripVertical, MoreHorizontal, Plus } from "lucide-react";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/app/page-header";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Progress } from "@/components/ui/progress";
 import { getScholarship } from "@/lib/data/scholarships";
 import { formatMoney, formatShort, relativeLabel } from "@/lib/dates";
@@ -32,9 +42,15 @@ export const Route = createFileRoute("/_student/tracker")({
   head: () => ({
     meta: [
       { title: "Application tracker — Application Buddy" },
-      { name: "description", content: "Drag scholarship applications between Saved, In Progress, Submitted and Awarded." },
+      {
+        name: "description",
+        content: "Drag scholarship applications between Saved, In Progress, Submitted and Awarded.",
+      },
       { property: "og:title", content: "Application tracker — Application Buddy" },
-      { property: "og:description", content: "Drag scholarship applications between Saved, In Progress, Submitted and Awarded." },
+      {
+        property: "og:description",
+        content: "Drag scholarship applications between Saved, In Progress, Submitted and Awarded.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -46,14 +62,27 @@ function CardBody({ s, stage, dragging }: { s: Scholarship; stage: Stage; draggi
   const { docs } = useAppStore();
   const r = readiness(s, docs[s.id]);
   return (
-    <div className={cn("rounded-xl border bg-card p-4 shadow-card", dragging && "rotate-2 shadow-lift ring-2 ring-primary")}>
+    <div
+      className={cn(
+        "rounded-xl border bg-card p-4 shadow-card",
+        dragging && "rotate-2 shadow-lift ring-2 ring-primary",
+      )}
+    >
       <p className="font-semibold leading-snug text-foreground">{s.name}</p>
       <p className="mt-0.5 text-xs text-muted-foreground">{s.provider}</p>
-      <div className="mt-3 flex items-center justify-between text-sm">
+      <div className="mt-3 flex flex-col gap-0.5 text-sm">
         <span className="font-display font-bold text-foreground">{formatMoney(s.amount)}</span>
         {stage !== "awarded" && (
-          <span className={cn("inline-flex items-center gap-1 text-xs font-semibold", s.deadlineInDays >= 0 && s.deadlineInDays <= 14 ? "text-destructive" : "text-muted-foreground")}>
-            <CalendarClock className="size-3.5" /> {formatShort(s.deadlineInDays)} · {relativeLabel(s.deadlineInDays)}
+          <span
+            className={cn(
+              "inline-flex items-center gap-1 text-xs font-semibold",
+              s.deadlineInDays >= 0 && s.deadlineInDays <= 14
+                ? "text-destructive"
+                : "text-muted-foreground",
+            )}
+          >
+            <CalendarClock className="size-3.5" /> {formatShort(s.deadlineInDays)} ·{" "}
+            {relativeLabel(s.deadlineInDays)}
           </span>
         )}
       </div>
@@ -69,7 +98,10 @@ function CardBody({ s, stage, dragging }: { s: Scholarship; stage: Stage; draggi
 
 function DraggableCard({ s, stage }: { s: Scholarship; stage: Stage }) {
   const { moveApplication, removeScholarship } = useAppStore();
-  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({ id: s.id, data: { stage } });
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: s.id,
+    data: { stage },
+  });
   return (
     <div ref={setNodeRef} className={cn("group relative", isDragging && "opacity-40")}>
       <div className="flex">
@@ -87,7 +119,12 @@ function DraggableCard({ s, stage }: { s: Scholarship; stage: Stage }) {
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon-sm" className="absolute right-1.5 top-1.5" aria-label={`Options for ${s.name}`}>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            className="absolute right-1.5 top-1.5"
+            aria-label={`Options for ${s.name}`}
+          >
             <MoreHorizontal />
           </Button>
         </DropdownMenuTrigger>
@@ -127,15 +164,22 @@ function Column({ stage, items }: { stage: (typeof STAGES)[number]; items: Schol
     <section
       ref={setNodeRef}
       aria-label={`${stage.label} column`}
-      className={cn("flex min-h-[320px] flex-col rounded-2xl border-2 border-transparent bg-muted/70 p-3 transition-colors", isOver && "border-primary bg-primary-soft")}
+      className={cn(
+        "flex min-h-[320px] flex-col rounded-2xl border-2 border-transparent bg-muted/70 p-3 transition-colors",
+        isOver && "border-primary bg-primary-soft",
+      )}
     >
       <header className="mb-3 px-1">
         <div className="flex items-center gap-2">
           <span className={cn("size-2.5 rounded-full", stage.bar)} />
           <h2 className="font-sans text-sm font-bold text-foreground">{stage.label}</h2>
-          <span className="ml-auto rounded-full bg-card px-2 py-0.5 text-xs font-bold text-muted-foreground">{items.length}</span>
+          <span className="ml-auto rounded-full bg-card px-2 py-0.5 text-xs font-bold text-muted-foreground">
+            {items.length}
+          </span>
         </div>
-        <p className="mt-1 text-xs text-muted-foreground">{items.length ? formatMoney(total) : stage.hint}</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {items.length ? formatMoney(total) : stage.hint}
+        </p>
       </header>
       <div className="flex flex-1 flex-col gap-3">
         {items.map((s) => (
@@ -151,8 +195,14 @@ function Column({ stage, items }: { stage: (typeof STAGES)[number]; items: Schol
   );
 }
 
+const collision: CollisionDetection = (args) => {
+  const hits = pointerWithin(args);
+  return hits.length ? hits : rectIntersection(args);
+};
+
 function Tracker() {
   const { applications, moveApplication } = useAppStore();
+  const dndId = useId();
   const [activeId, setActiveId] = useState<string | null>(null);
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -175,7 +225,10 @@ function Tracker() {
     if (!to || applications[id] === to) return;
     moveApplication(id, to);
     const label = STAGES.find((x) => x.id === to)!.label;
-    if (to === "awarded") toast.success("Congratulations! 🎉", { description: `${getScholarship(id)?.name} marked as awarded.` });
+    if (to === "awarded")
+      toast.success("Congratulations! 🎉", {
+        description: `${getScholarship(id)?.name} marked as awarded.`,
+      });
     else toast.success(`Moved to ${label}`, { description: getScholarship(id)?.name });
   };
 
@@ -195,13 +248,24 @@ function Tracker() {
           </Button>
         }
       />
-      <DndContext sensors={sensors} onDragStart={onDragStart} onDragEnd={onDragEnd} onDragCancel={() => setActiveId(null)}>
+      <DndContext
+        id={dndId}
+        sensors={sensors}
+        collisionDetection={collision}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+        onDragCancel={() => setActiveId(null)}
+      >
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {STAGES.map((st) => (
             <Column key={st.id} stage={st} items={byStage(st.id)} />
           ))}
         </div>
-        <DragOverlay>{active ? <CardBody s={active} stage={applications[active.id]} dragging /> : null}</DragOverlay>
+        <DragOverlay>
+          {active ? (
+            <CardBody s={active} stage={applications[active.id] ?? "saved"} dragging />
+          ) : null}
+        </DragOverlay>
       </DndContext>
     </div>
   );

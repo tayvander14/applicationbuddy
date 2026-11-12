@@ -132,7 +132,10 @@ function StudentLayout() {
                 <Menu />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="flex w-72 flex-col gap-6 border-sidebar-border bg-sidebar p-5">
+            <SheetContent
+              side="left"
+              className="flex w-72 flex-col gap-6 border-sidebar-border bg-sidebar p-5"
+            >
               <SheetTitle className="sr-only">Menu</SheetTitle>
               <Logo tone="inverse" />
               <NavLinks onNavigate={() => setOpen(false)} />

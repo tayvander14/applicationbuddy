@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Prototype state (profile, tracker stages, document statuses, essays) lives in one client store `src/lib/store/app-store.tsx`, persisted to localStorage — no backend yet, so every screen reads the same demo student.
+- Eligibility scoring, essay checks, readiness and assistant answers are pure functions in `src/lib/` (matching, essay, readiness, assistant) and are covered by `src/test/rules.test.ts`; keep UI free of rule logic.
+- Scholarship deadlines and verified dates are stored as day offsets from today so the demo never goes stale.
+- Student screens live under the pathless `_student` layout (sidebar shell); landing, sign-in and onboarding sit outside it.
