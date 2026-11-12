@@ -78,9 +78,9 @@ function ReplyCard({ reply }: { reply: AssistantReply }) {
             <p key={p}>{p}</p>
           ))}
         </div>
-        <p className="mt-3 inline-flex flex-wrap items-center gap-1.5 rounded-lg bg-success-soft px-2.5 py-1.5 text-xs font-semibold text-success">
-          <BadgeCheck className="size-3.5" /> Source: {reply.source.name} · {reply.source.url} ·
-          verified {formatVerified(reply.source.verifiedDaysAgo)}
+        <p className="mt-3 flex items-start gap-1.5 rounded-lg bg-success-soft px-2.5 py-1.5 text-xs font-semibold text-success">
+          <BadgeCheck className="mt-px size-3.5 shrink-0" /> Source: {reply.source.name} ·{" "}
+          {reply.source.url} · verified {formatVerified(reply.source.verifiedDaysAgo)}
         </p>
       </div>
     );

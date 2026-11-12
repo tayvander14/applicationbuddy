@@ -137,7 +137,7 @@ function Dashboard() {
           icon={Wallet}
           label="Potential awards"
           value={formatMoney(potential)}
-          sub={`${tracked.length - (won ? 1 : 0)} applications`}
+          sub={`${tracked.filter((t) => t.stage !== "awarded").length} open applications`}
           tone="bg-primary-soft text-primary"
         />
         <Stat
