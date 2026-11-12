@@ -323,11 +323,13 @@ function Deadlines() {
                       className="mt-3 flex items-center gap-2 rounded-lg bg-destructive-soft px-3 py-2 text-sm font-medium text-destructive"
                     >
                       <AlertTriangle className="size-4" /> Due in {s.deadlineInDays} days with{" "}
-                      {
-                        items.filter((i) => i.status === "not-started" || i.status === "requested")
-                          .length
-                      }{" "}
-                      materials still outstanding.
+                      {(() => {
+                        const n = items.filter(
+                          (i) => i.status === "not-started" || i.status === "requested",
+                        ).length;
+                        return `${n} ${n === 1 ? "item" : "items"}`;
+                      })()}{" "}
+                      still outstanding.
                     </p>
                   )}
                   {r === 100 && (
