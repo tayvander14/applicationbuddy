@@ -2,6 +2,9 @@ import {
   DndContext,
   DragOverlay,
   KeyboardSensor,
+  pointerWithin,
+  rectIntersection,
+  type CollisionDetection,
   PointerSensor,
   TouchSensor,
   useDraggable,
@@ -191,6 +194,11 @@ function Column({ stage, items }: { stage: (typeof STAGES)[number]; items: Schol
     </section>
   );
 }
+
+const collision: CollisionDetection = (args) => {
+  const hits = pointerWithin(args);
+  return hits.length ? hits : rectIntersection(args);
+};
 
 function Tracker() {
   const { applications, moveApplication } = useAppStore();
