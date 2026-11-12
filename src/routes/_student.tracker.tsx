@@ -201,7 +201,7 @@ function Tracker() {
             <Column key={st.id} stage={st} items={byStage(st.id)} />
           ))}
         </div>
-        <DragOverlay>{active ? <CardBody s={active} stage={applications[active.id]} dragging /> : null}</DragOverlay>
+        <DragOverlay>{active ? <CardBody s={active} stage={applications[active.id] ?? "saved"} dragging /> : null}</DragOverlay>
       </DndContext>
     </div>
   );

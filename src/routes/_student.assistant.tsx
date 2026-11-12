@@ -16,8 +16,8 @@ import { useAppStore } from "@/lib/store/app-store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_student/assistant")({
-  validateSearch: (search: Record<string, unknown>): { s?: string } => ({
-    s: typeof search.s === "string" ? search.s : undefined,
+  validateSearch: (search: Record<string, unknown>): { s?: string | undefined } => ({
+    s: typeof search["s"] === "string" ? search["s"] : undefined,
   }),
   head: () => ({
     meta: [

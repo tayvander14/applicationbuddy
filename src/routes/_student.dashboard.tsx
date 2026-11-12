@@ -27,7 +27,7 @@ export const Route = createFileRoute("/_student/dashboard")({
   component: Dashboard,
 });
 
-function Stat({ icon: Icon, label, value, sub, tone }: { icon: typeof Wallet; label: string; value: string; sub?: string; tone: string }) {
+function Stat({ icon: Icon, label, value, sub, tone }: { icon: typeof Wallet; label: string; value: string; sub?: string | undefined; tone: string }) {
   return (
     <div className="rounded-2xl border bg-card p-5 shadow-card">
       <div className={cn("mb-3 flex size-10 items-center justify-center rounded-xl", tone)}>

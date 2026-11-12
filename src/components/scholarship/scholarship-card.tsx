@@ -12,7 +12,7 @@ import type { Scholarship } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export function eligibilitySummary(m: MatchResult): { text: string; tone: "success" | "warning" | "destructive" } {
-  if (m.unmet.length) return { text: `Doesn't meet ${m.unmet.length} rule${m.unmet.length > 1 ? "s" : ""}: ${m.unmet[0].label.toLowerCase()}`, tone: "destructive" };
+  if (m.unmet.length) return { text: `Doesn't meet ${m.unmet.length} rule${m.unmet.length > 1 ? "s" : ""}: ${(m.unmet[0]?.label ?? "").toLowerCase()}`, tone: "destructive" };
   if (m.verify.length) return { text: `Meets ${m.met.length} of ${m.checks.length} rules · ${m.verify.length} to verify`, tone: "warning" };
   return { text: `Meets all ${m.checks.length} eligibility rules`, tone: "success" };
 }

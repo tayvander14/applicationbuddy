@@ -183,7 +183,7 @@ function classifyOfferLine(line: string) {
 
 export function answerQuestion(
   question: string,
-  ctx: { profile: StudentProfile; docs: Record<string, Partial<Record<DocKey, DocStatus>>>; contextScholarshipId?: string },
+  ctx: { profile: StudentProfile; docs: Record<string, Partial<Record<DocKey, DocStatus>>>; contextScholarshipId?: string | undefined },
 ): AssistantReply {
   const q = question.trim();
   const lower = q.toLowerCase();

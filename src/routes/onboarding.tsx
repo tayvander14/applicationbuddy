@@ -188,7 +188,7 @@ function Onboarding() {
                   value={draft.state}
                   onChange={(v) => {
                     const first = COUNTIES.find((c) => c.state === v)!;
-                    setDraft((d) => ({ ...d, state: v, county: first.name, city: first.cities[0], district: first.district }));
+                    setDraft((d) => ({ ...d, state: v, county: first.name, city: first.cities[0] ?? "", district: first.district }));
                   }}
                   options={STATES.map((s) => ({ value: s.code, label: s.name }))}
                 />
@@ -199,7 +199,7 @@ function Onboarding() {
                     value={draft.county}
                     onValueChange={(v) => {
                       const c = COUNTIES.find((x) => x.name === v)!;
-                      setDraft((d) => ({ ...d, county: v, city: c.cities[0], district: c.district }));
+                      setDraft((d) => ({ ...d, county: v, city: c.cities[0] ?? "", district: c.district }));
                     }}
                   >
                     <SelectTrigger aria-label="County">

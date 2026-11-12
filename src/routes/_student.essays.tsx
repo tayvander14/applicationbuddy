@@ -14,8 +14,8 @@ import { useAppStore } from "@/lib/store/app-store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_student/essays")({
-  validateSearch: (search: Record<string, unknown>): { s?: string } => ({
-    s: typeof search.s === "string" ? search.s : undefined,
+  validateSearch: (search: Record<string, unknown>): { s?: string | undefined } => ({
+    s: typeof search["s"] === "string" ? search["s"] : undefined,
   }),
   head: () => ({
     meta: [
@@ -63,7 +63,7 @@ function Essays() {
   const navigate = useNavigate({ from: Route.fullPath });
   const { applications, essays, setEssay } = useAppStore();
   const trackedIds = Object.keys(applications);
-  const selectedId = sParam && getScholarship(sParam) ? sParam : (trackedIds.find((id) => id === "mc-stem-pathways") ?? trackedIds[0] ?? SCHOLARSHIPS[0].id);
+  const selectedId = sParam && getScholarship(sParam) ? sParam : (trackedIds.find((id) => id === "mc-stem-pathways") ?? trackedIds[0] ?? SCHOLARSHIPS[0]!.id);
   const s = getScholarship(selectedId)!;
   const [text, setText] = useState(essays[selectedId] ?? "");
   const [view, setView] = useState<"edit" | "review">("edit");
