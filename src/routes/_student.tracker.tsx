@@ -16,7 +16,7 @@ import {
 } from "@dnd-kit/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarClock, GripVertical, MoreHorizontal, Plus } from "lucide-react";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/app/page-header";
@@ -202,6 +202,7 @@ const collision: CollisionDetection = (args) => {
 
 function Tracker() {
   const { applications, moveApplication } = useAppStore();
+  const dndId = useId();
   const [activeId, setActiveId] = useState<string | null>(null);
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -248,6 +249,7 @@ function Tracker() {
         }
       />
       <DndContext
+        id={dndId}
         sensors={sensors}
         collisionDetection={collision}
         onDragStart={onDragStart}
